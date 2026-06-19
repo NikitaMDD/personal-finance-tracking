@@ -1,0 +1,1 @@
+export { LoginAndRegisterPage } from "./LoginAndRegisterPage"
