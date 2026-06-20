@@ -1,5 +1,7 @@
 import { TypographySection } from "./sections/TypographySection";
 import { Typography } from "../typography";
+import { ButtonSection } from "./sections/ButtonsSection";
+import { InputsSection } from "./sections/InputsSection";
 
 export function GuidelinePage() {
     return (
@@ -19,6 +21,10 @@ export function GuidelinePage() {
             </header>
 
             <TypographySection/>
+
+            <ButtonSection/>
+
+            <InputsSection />
         </main>
     )
 }
