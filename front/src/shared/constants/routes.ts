@@ -8,4 +8,5 @@ export const ROUTES = {
     CATEGORIES: '/categories',
     BUDGET: '/budget',
     PROFILE: '/profile',
+    GUIDELINE: '/guideline',
 } as const;
