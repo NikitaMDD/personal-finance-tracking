@@ -10,37 +10,55 @@ export function TypographySection() {
             <GuidelineGrid>
 
                 <GuidelineBlock title="Display">
-                    <Typography variant="display">
+                    <Typography 
+                        as="h1"
+                        variant="display"
+                    >
                         Display Typography
                     </Typography>
                 </GuidelineBlock>
 
                 <GuidelineBlock title="Heading 1">
-                    <Typography variant="h1">
+                    <Typography 
+                        as="h1"
+                        variant="h1"
+                    >
                         Heading 1
                     </Typography>
                 </GuidelineBlock>
 
                 <GuidelineBlock title="Heading 2">
-                    <Typography variant="h2">
+                    <Typography 
+                        as="h2"
+                        variant="h2"
+                    >
                         Heading 2
                     </Typography>
                 </GuidelineBlock>
 
                 <GuidelineBlock title="Heading 3">
-                    <Typography variant="h3">
+                    <Typography 
+                        as="h2"
+                        variant="h3"
+                    >
                         Heading 3
                     </Typography>
                 </GuidelineBlock>
 
                 <GuidelineBlock title="Body">
-                    <Typography variant="body">
+                    <Typography 
+                        as="p"
+                        variant="body"
+                    >
                         Это пример основного текста интерфейса.
                     </Typography>
                 </GuidelineBlock>
 
                 <GuidelineBlock title="Small">
-                    <Typography variant="small">
+                    <Typography 
+                        as="span"
+                        variant="small"
+                    >
                         Дополнительный текст небольшого размера.
                     </Typography>
                 </GuidelineBlock>

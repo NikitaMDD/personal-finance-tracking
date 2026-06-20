@@ -5,3 +5,4 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: string;
     fullWidth?: boolean;
 }
+

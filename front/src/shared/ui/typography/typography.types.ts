@@ -1,4 +1,7 @@
-import type { ReactNode } from "react";
+import type { 
+    ElementType,
+    ReactNode,
+ } from "react";
 
 export type TypographyVariant = 
     | "display"
@@ -13,4 +16,5 @@ export interface TypographyProps {
     children: ReactNode;
     variant?: TypographyVariant;
     className?: string;
+    as?: ElementType;
 }

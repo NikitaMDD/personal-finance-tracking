@@ -15,10 +15,18 @@ export function Typography({
     children,
     variant = "body",
     className,
+    as,
 }: TypographyProps) {
+
+  const Component = as ?? 'p';
+
   return (
-    <p className={cn(variantClasses[variant], className)}>
-        {children}
-    </p>
+    <Component
+      className={cn(
+        variantClasses[variant], className
+      )}
+    >
+      {children}
+    </Component>
   )
 }

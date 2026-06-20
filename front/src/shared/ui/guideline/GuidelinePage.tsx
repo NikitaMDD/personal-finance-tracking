@@ -2,6 +2,7 @@ import { TypographySection } from "./sections/TypographySection";
 import { Typography } from "../typography";
 import { ButtonSection } from "./sections/ButtonsSection";
 import { InputsSection } from "./sections/InputsSection";
+import { CardsSection } from "./sections/CardsSection";
 
 export function GuidelinePage() {
     return (
@@ -21,10 +22,9 @@ export function GuidelinePage() {
             </header>
 
             <TypographySection/>
-
             <ButtonSection/>
-
             <InputsSection />
+            <CardsSection />
         </main>
     )
 }
