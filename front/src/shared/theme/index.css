@@ -1,0 +1,9 @@
+@import "./foundations/colors.css";
+@import "./foundations/spacing.css";
+@import "./foundations/radius.css";
+@import "./foundations/shadows.css";
+@import "./foundations/typography.css";
+@import "./foundations/transitions.css";
+@import "./foundations/z-index.css";
+
+@import "./globals.css";
