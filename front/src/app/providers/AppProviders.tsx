@@ -1,16 +1,22 @@
-import type { PropsWithChildren } from "react";
+import type {
+    PropsWithChildren,
+} from "react";
 
-import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AuthProvider } from "./AuthProvider";
+import { QueryProvider } from "./QueryProvider";
 
-import { queryClient } from "@/shared/api/queryClient";
-
-export function AppProviders({ children }: PropsWithChildren) {
+export function AppProviders({
+    children,
+}: PropsWithChildren) {
     return (
-        <QueryClientProvider client={queryClient}>
-            {children}
+        <QueryProvider>
 
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+            <AuthProvider>
+
+                {children}
+
+            </AuthProvider>
+
+        </QueryProvider>
     );
 }

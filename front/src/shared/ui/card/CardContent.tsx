@@ -1,10 +1,22 @@
-import type { PropsWithChildren } from "react";
+import type {
+    HTMLAttributes,
+} from "react";
+
+import { cn } from "@/shared/lib/cn";
 
 export function CardContent({
+    className,
     children,
-}: PropsWithChildren) {
+    ...props
+}: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className="px-6 pb-6">
+        <div
+            className={cn(
+                "px-6 pb-6",
+                className,
+            )}
+            {...props}
+        >
             {children}
         </div>
     );

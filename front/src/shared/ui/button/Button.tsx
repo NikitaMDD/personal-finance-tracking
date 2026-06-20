@@ -1,7 +1,8 @@
-import type { ButtonProps } from "./button.types";
+import { motion } from "framer-motion";
 
 import { buttonVariants } from "./button.styles";
-import { Spinner } from "../spinner";
+import type { ButtonProps } from "./button.types";
+import { Spinner } from "@/shared/ui/spinner"
 
 export function Button({
     children,
@@ -13,16 +14,23 @@ export function Button({
     ...props
 }: ButtonProps) {
     return (
-        <button
+        <motion.button
+            whileTap={{
+                scale: 0.98,
+            }}
             disabled={disabled || loading}
             className={buttonVariants({
                 variant,
                 size,
-                fullWidth: loading ? true : false,
+                fullWidth,
             })}
             {...props}
         >
-            {loading ? <Spinner/> : children}
-        </button>
+            {
+                loading
+                    ? <Spinner/>
+                    : children
+            }
+        </motion.button>
     );
 }

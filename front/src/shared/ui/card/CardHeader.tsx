@@ -1,10 +1,22 @@
-import type { PropsWithChildren } from "react";
+import type {
+    HTMLAttributes,
+} from "react";
+
+import { cn } from "@/shared/lib/cn";
 
 export function CardHeader({
+    className,
     children,
-}: PropsWithChildren) {
+    ...props
+}: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className="p-6">
+        <div 
+            className={cn(
+                "p-6",
+                className
+            )}
+            {...props}
+        >
             {children}
         </div>
     )

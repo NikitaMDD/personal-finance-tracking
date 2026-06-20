@@ -1,15 +1,20 @@
-import type { PropsWithChildren } from "react";
+import type {
+    HTMLAttributes,
+} from "react";
+import { cn } from "@/shared/lib/cn"
 
 export function CardFooter({
+    className,
     children,
-}: PropsWithChildren) {
+    ...props
+}: HTMLAttributes<HTMLDivElement>) {
     return (
         <div
-            className="
-                border-t
-                border-[var(--color-border)]
-                p-6
-            "
+            className={cn(
+                "border-t border-[var(--color-border)] p-6",
+                className,
+            )}
+            {...props}
         >
             {children}
         </div>
