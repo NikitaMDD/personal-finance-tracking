@@ -9,4 +9,7 @@ export interface RegisterRequest {
     password: string;
 }
 
-export interface AuthResponse {}
+export interface AuthResponse {
+    accessToken: string;
+    refreshToken: string;
+}

@@ -11,6 +11,7 @@ export function Button({
     loading = false,
     fullWidth = false,
     disabled,
+    className,
     ...props
 }: ButtonProps) {
     return (
@@ -23,6 +24,7 @@ export function Button({
                 variant,
                 size,
                 fullWidth,
+                className
             })}
             {...props}
         >

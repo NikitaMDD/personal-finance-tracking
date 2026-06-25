@@ -9,4 +9,5 @@ export const ROUTES = {
     BUDGET: '/budget',
     PROFILE: '/profile',
     GUIDELINE: '/guideline',
+    IMPORT: '/import',
 } as const;

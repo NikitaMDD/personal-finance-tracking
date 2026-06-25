@@ -16,6 +16,7 @@ export const Input = forwardRef<
             error,
             fullWidth = false,
             className,
+            description,
             ...props
         },
         ref,
@@ -48,6 +49,18 @@ export const Input = forwardRef<
                     )}
                     {...props}
                 />
+                {description && (
+                    <Typography
+                        variant="caption"
+                        className="
+                            mb-3
+                            block
+                            text-[var(--color-text-secondary)]
+                        "
+                    >
+                        {description}
+                    </Typography>
+                )}
 
                 <AnimatePresence>
                     {error && (

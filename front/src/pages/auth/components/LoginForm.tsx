@@ -3,6 +3,10 @@ import { Button } from "@/shared/ui/button";
 import { useLoginForm } from "@/features/auth/hooks/useLoginForm";
 import { useLoginMutation } from "@/features/auth/hooks/useLoginMutation";
 import type { LoginFormData } from "@/features/auth/model/login.schema"
+import { useAuth } from "@/shared/auth";
+import { ROUTES } from "@/shared/constants/routes";
+import { useNavigate } from "react-router-dom";
+import { DEV_USER } from "@/features/auth/model/dev-user";
 export function LoginForm() {
 
     const {
@@ -13,12 +17,27 @@ export function LoginForm() {
 
     const loginMutation = useLoginMutation();
 
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
     const onSubmit = async (
         data: LoginFormData,
     ) => {
-        await loginMutation.mutateAsync(
-            data,
-        );
+        
+        if (
+            data.email === DEV_USER.email &&
+            data.password === DEV_USER.password
+        ) {
+            login(
+                DEV_USER.accessToken,
+                DEV_USER.refreshToken,
+            );
+
+            navigate(ROUTES.DASHBOARD);
+
+            return;
+        }
+
     };
 
     return (

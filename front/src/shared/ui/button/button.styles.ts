@@ -9,6 +9,7 @@ interface ButtonVariantsProps {
     variant: ButtonVariant;
     size: ButtonSize;
     fullWidth?: boolean;
+    className?: string;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -35,11 +36,13 @@ export function buttonVariants({
     variant,
     size,
     fullWidth = false,
+    className,
 }: ButtonVariantsProps) {
     return cn(
         "inline-flex items-center justify-center rounded-[var(--radius-md)] font-medium transition-all duration-200 disabled:pointer-events-none disabled:opacity-50",
         variants[variant],
         sizes[size],
         fullWidth && "w-full",
+        className
     );
 }
