@@ -1,15 +1,52 @@
-import { accountsMock } from "@/entities/account/model";
-import { AccountCard } from "@/entities/account/ui";
+import { accountsMock, type Account  } from "@/entities/account/model";
 
-export function AccountSlider() {
+import { AccountSliderHeader } from "./AccountSliderHeader";
+import { AccountSliderControls } from "./AccountSliderControls";
+import { AccountSliderDots } from "./AccountSliderDots";
+import { AccountSliderList } from "./AccountSliderList";
+
+import { useAccountSlider } from "./hooks/useAccountSlider";
+
+interface AccountSliderProps {
+    accounts: Account[];
+    selectedAccount: Account;
+    onSelectAccount(
+        account: Account,
+    ): void;
+}
+
+export function AccountSlider({
+    accounts,
+    selectedAccount,
+    onSelectAccount,
+}: AccountSliderProps) {
+
+    const slider = useAccountSlider(
+        accounts.length,
+    );
+
     return (
-        <div className="flex gap-6 overflow-x-auto mr-3 pb-4">
-            {accountsMock.map((account) => (
-                <AccountCard 
-                    key={account.id}
-                    account={account}
+
+        <section className="space-y-6">
+            <AccountSliderHeader>
+                <AccountSliderControls
+                    slider={slider}
                 />
-            ))}
-        </div>
-    )
+            </AccountSliderHeader>
+
+            <AccountSliderList
+                slider={slider}
+                accounts={accounts}
+                selectedAccount={selectedAccount}
+                onSelectAccount={onSelectAccount}
+            />
+
+            <AccountSliderDots
+                slider={slider}
+                count={accounts.length}
+            />
+
+        </section>
+
+    );
 }
