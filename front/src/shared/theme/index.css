@@ -5,5 +5,6 @@
 @import "./foundations/typography.css";
 @import "./foundations/transitions.css";
 @import "./foundations/z-index.css";
+@import "./foundations/animations.css";
 
 @import "./globals.css";

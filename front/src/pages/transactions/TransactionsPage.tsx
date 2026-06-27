@@ -1,31 +1,54 @@
-import { Typography } from "@/shared/ui/typography";
+import { useState } from "react";
 
-import {
-    TransactionList,
-} from "@/entities/transaction/ui";
+import { useHeader } from "@/shared/hooks/useHeader";
 
-import {
-    transactionsMock,
+import type {
+    TransactionFilter,
 } from "@/entities/transaction/model";
 
-// import {TransactionsHeader, TransactionsSearch, TransactionsFilters, TransactionsSort, TransactionsContent} from "./components";
+import type {
+    TransactionSort,
+} from "@/entities/transaction/model";
+
+import {
+    TransactionsHeader,
+    TransactionsToolbar,
+    TransactionsContent,
+} from "./components";
 
 export function TransactionsPage() {
 
-    return (
+    useHeader({
+        search: {
+            visible: true,
+            placeholder: "Поиск операций...",
+        },
+    });
 
+    const [filter, setFilter] =
+        useState<TransactionFilter>("all");
+
+    const [sort, setSort] =
+        useState<TransactionSort>("newest");
+
+    return (
         <div className="space-y-8">
 
-            {/* <TransactionsHeader />
+            <TransactionsHeader />
 
+            <TransactionsToolbar
+                filter={filter}
+                onFilterChange={setFilter}
 
-            <TransactionsFilters />
+                sort={sort}
+                onSortChange={setSort}
+            />
 
-            <TransactionsSort />
-
-            <TransactionsContent /> */}
+            <TransactionsContent
+                filter={filter}
+                sort={sort}
+            />
 
         </div>
-
     );
 }
