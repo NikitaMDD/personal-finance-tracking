@@ -8,21 +8,24 @@ import {
     transactionsMock,
 } from "@/entities/transaction/model";
 
+// import {TransactionsHeader, TransactionsSearch, TransactionsFilters, TransactionsSort, TransactionsContent} from "./components";
+
 export function TransactionsPage() {
 
     return (
 
-        <section className="space-y-8">
-            <Typography
-                as="h1"
-                variant="h1"
-            >
-                Транзакции
-            </Typography>
-            <TransactionList
-                transactions={transactionsMock}
-            />
-        </section>
+        <div className="space-y-8">
+
+            {/* <TransactionsHeader />
+
+
+            <TransactionsFilters />
+
+            <TransactionsSort />
+
+            <TransactionsContent /> */}
+
+        </div>
 
     );
 }

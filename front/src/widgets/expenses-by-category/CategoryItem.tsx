@@ -24,18 +24,15 @@ export function CategoryItem({
                     justify-between
                 "
             >
-
                 <Typography variant="body">
                     {category.title}
                 </Typography>
-
                 <Typography variant="small">
                     {formatAmount(
                         category.amount,
                         "RUB",
                     )}
                 </Typography>
-
             </div>
 
             <div
@@ -46,7 +43,6 @@ export function CategoryItem({
                     gap-3
                 "
             >
-
                 <div
                     className="
                         h-2
@@ -57,29 +53,23 @@ export function CategoryItem({
                 >
 
                 <motion.div
-
                     className="
                         h-full
                         rounded-full
                     "
-
                     initial={{
                         width: 0,
                     }}
-
                     animate={{
                         width: `${category.percent}%`,
                     }}
-
                     transition={{
                         duration: .6,
                         ease: "easeOut",
                     }}
-
                     style={{
                         background: category.color,
                     }}
-
                 />
 
                 </div>
