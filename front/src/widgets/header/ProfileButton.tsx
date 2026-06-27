@@ -1,7 +1,6 @@
-import { User } from "lucide-react";
-
 import { Typography } from "@/shared/ui/typography";
 import { Button } from "@/shared/ui/button";
+import { Avatar } from "@/shared/ui/avatar";
 
 export function ProfileButton() {
     return (
@@ -32,13 +31,16 @@ export function ProfileButton() {
                     text-white
                 "
             >
-                <User size={18} />
+                <Avatar
+                    name="Никита Марчук"
+                    size="md"
+                />
             </div>
 
             <Typography
                 variant="small"
             >
-                Никита
+                Никита Марчук
             </Typography>
         </button>
     );

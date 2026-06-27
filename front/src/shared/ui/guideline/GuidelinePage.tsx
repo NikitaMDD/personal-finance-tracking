@@ -3,6 +3,11 @@ import { Typography } from "../typography";
 import { ButtonSection } from "./sections/ButtonsSection";
 import { InputsSection } from "./sections/InputsSection";
 import { CardsSection } from "./sections/CardsSection";
+import { BadgeSection } from "./sections/BadgeSection";
+import { SkeletonSection } from "./sections/SkeletonSection"
+import { AvatarSection } from "./sections/AvatarSection"
+import { TooltipSection } from "./sections/TooltipSection";
+import { EmptySection } from "./sections/EmptySection";
 
 export function GuidelinePage() {
     return (
@@ -25,6 +30,11 @@ export function GuidelinePage() {
             <ButtonSection/>
             <InputsSection />
             <CardsSection />
+            <BadgeSection />
+            <SkeletonSection />
+            <AvatarSection />
+            <TooltipSection />
+            <EmptySection/>
         </main>
     )
 }
