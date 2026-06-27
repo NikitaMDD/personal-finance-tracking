@@ -1,14 +1,10 @@
-import { Typography } from "@/shared/ui/typography";
+// import { Typography } from "@/shared/ui/typography";
+import { AccountSlider } from "@/widgets/account-slider/AccountSlider"
 
 export function DashboardPage() {
     return (
         <>
-            <Typography
-                as="h1"
-                variant="h1"
-            >
-                Dashboard
-            </Typography>
+            <AccountSlider/>
         </>
     );
 }
