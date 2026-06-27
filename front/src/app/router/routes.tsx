@@ -6,6 +6,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import { LoginAndRegisterPage } from "@/pages/auth";
 import { DashboardPage } from "@/pages/dashboard";
 import { GuidelinePage } from "@/shared/ui/guideline";
+import { TransactionsPage } from "@/pages/transactions";
+
 
 import { ROUTES } from "@/shared/constants/routes";
 import { ProtectedRoute } from "@/features/auth";
@@ -37,10 +39,10 @@ export const router = createBrowserRouter([
                         element: <DashboardPage />,
                     },
 
-                    // {
-                    //     path: ROUTES.TRANSACTIONS,
-                    //     element: <TransactionsPage />,
-                    // },
+                    {
+                        path: ROUTES.TRANSACTIONS,
+                        element: <TransactionsPage />,
+                    },
 
                     // {
                     //     path: ROUTES.ANALYTICS,
