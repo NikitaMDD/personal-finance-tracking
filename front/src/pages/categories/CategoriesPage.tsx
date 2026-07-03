@@ -6,11 +6,37 @@ import { CategoriesGrid } from "./components/CategoriesGrid";
 import { CreateCategoryDialog } from "./dialogs/CreateCategoryDialog";
 import { EditCategoryDialog } from "./dialogs/EditCategoryDialog";
 import { DeleteCategoryDialog } from "./dialogs/DeleteCategoryDialog";
+import { useHeader } from "@/shared/hooks/useHeader";
+import { useUIStore } from "@/shared/store/ui.store";
+import { categoriesMock } from "@/entities/category/model/category.mock";
 
 export function CategoriesPage() {
 
     const categories =
         useCategories();
+
+    useHeader({
+        search: {
+            visible: true,
+            placeholder: "Поиск категорий",
+        },
+    });
+
+    const search =
+        useUIStore(
+            state => state.searchValue,
+        );
+
+    const filteredCategories =
+        categoriesMock.filter(category =>
+
+            category.title
+                .toLowerCase()
+                .includes(
+                    search.toLowerCase(),
+                ),
+
+        );
 
     return (
 

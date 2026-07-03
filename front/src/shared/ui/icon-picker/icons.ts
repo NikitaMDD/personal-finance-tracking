@@ -5,6 +5,12 @@ import {
     Wallet,
     Plane,
     HeartPulse,
+    Gamepad2,
+    Gift,
+    Shirt,
+    GraduationCap,
+    CircleDollarSign,
+    UtensilsCrossed,
 } from "lucide-react";
 
 export const CATEGORY_ICONS = [
@@ -29,7 +35,38 @@ export const CATEGORY_ICONS = [
         icon: Plane,
     },
     {
-        id: "heart",
+        id: "health",
         icon: HeartPulse,
     },
+    {
+        id: "gamepad",
+        icon: Gamepad2,
+    },
+    {
+        id: "gift",
+        icon: Gift,
+    },
+    {
+        id: "shirt",
+        icon: Shirt,
+    },
+    {
+        id: "education",
+        icon: GraduationCap,
+    },
+    {
+        id: "salary",
+        icon: CircleDollarSign,
+    },
+    {
+        id: "restaurant",
+        icon: UtensilsCrossed,
+    },
 ];
+
+export const ICON_MAP = Object.fromEntries(
+    CATEGORY_ICONS.map(item => [
+        item.id,
+        item.icon,
+    ]),
+);

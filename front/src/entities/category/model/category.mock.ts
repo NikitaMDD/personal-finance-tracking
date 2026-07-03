@@ -13,8 +13,9 @@ export const categoriesMock: Category[] = [
     {
         id: "1",
         title: "Продукты",
-        icon: ShoppingBasket,
+        icon: "shopping-basket",
         color: "#22C55E",
+        type: "expense",
         operationsCount: 43,
         totalAmount: 24890,
         percent: 38,
@@ -22,7 +23,8 @@ export const categoriesMock: Category[] = [
     {
         id: "2",
         title: "Транспорт",
-        icon: Car,
+        icon: "car",
+        type: "expense",
         color: "#3B82F6",
         operationsCount: 17,
         totalAmount: 12100,
@@ -31,7 +33,8 @@ export const categoriesMock: Category[] = [
     {
         id: "3",
         title: "Дом",
-        icon: House,
+        icon: "house",
+        type: "income",
         color: "#8B5CF6",
         operationsCount: 12,
         totalAmount: 34600,
@@ -40,7 +43,8 @@ export const categoriesMock: Category[] = [
     {
         id: "4",
         title: "Развлечения",
-        icon: Plane,
+        icon: "plane",
+        type: "expense",
         color: "#F97316",
         operationsCount: 8,
         totalAmount: 9200,
@@ -49,7 +53,8 @@ export const categoriesMock: Category[] = [
     {
         id: "5",
         title: "Здоровье",
-        icon: HeartPulse,
+        icon: "health",
+        type: "expense",
         color: "#EF4444",
         operationsCount: 5,
         totalAmount: 3100,
@@ -58,7 +63,8 @@ export const categoriesMock: Category[] = [
     {
         id: "6",
         title: "Прочее",
-        icon: Wallet,
+        icon: "wallet",
+        type: "expense",
         color: "#64748B",
         operationsCount: 14,
         totalAmount: 5400,

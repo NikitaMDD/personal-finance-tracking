@@ -9,6 +9,9 @@ import {
     motion,
 } from "framer-motion";
 
+import { Empty } from "@/shared/ui/empty";
+import { Button } from "@/shared/ui/button";
+
 interface Props {
     categories: Category[];
     onEdit(
@@ -24,6 +27,20 @@ export function CategoriesGrid({
     onEdit,
     onDelete,
 }: Props) {
+
+    if (!categories.length) {
+        return (
+            <Empty
+                title="Категории не найдены"
+                description="Попробуйте изменить поисковый запрос."
+                action={
+                    <Button>
+                        Создать категорию
+                    </Button>
+                }
+            />
+        );
+    }
 
     return (
         <div
@@ -41,7 +58,7 @@ export function CategoriesGrid({
                         layout
                         initial={{
                             opacity: 0,
-                            scale: .95,
+                            scale: .96,
                             y: 20,
                         }}
                         animate={{
@@ -51,10 +68,11 @@ export function CategoriesGrid({
                         }}
                         exit={{
                             opacity: 0,
-                            scale: .95,
+                            scale: .96,
+                            y: 20,
                         }}
                         transition={{
-                            duration: .25,
+                            duration: .22,
                         }}
                     >
                         <CategoryCard
