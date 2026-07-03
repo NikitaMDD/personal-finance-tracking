@@ -8,6 +8,7 @@ import { DashboardPage } from "@/pages/dashboard";
 import { GuidelinePage } from "@/shared/ui/guideline";
 import { TransactionsPage } from "@/pages/transactions";
 import { CategoriesPage } from "@/pages/categories";
+import { AnalyticsPage } from "@/pages/analytics";
 
 
 import { ROUTES } from "@/shared/constants/routes";
@@ -50,10 +51,10 @@ export const router = createBrowserRouter([
                         element: <CategoriesPage />,
                     },
 
-                    // {
-                    //     path: ROUTES.ANALYTICS,
-                    //     element: <AnalyticsPage />,
-                    // },
+                    {
+                        path: ROUTES.ANALYTICS,
+                        element: <AnalyticsPage />,
+                    },
                 ],
             },
         ],

@@ -9,6 +9,8 @@ import { AvatarSection } from "./sections/AvatarSection"
 import { TooltipSection } from "./sections/TooltipSection";
 import { EmptySection } from "./sections/EmptySection";
 import { DialogSection } from "./sections/DialogSection";
+import { TabsSection } from "./sections/TabsSection";
+import { ChartCardSection } from "./sections/ChartCardSection";
 
 export function GuidelinePage() {
     return (
@@ -37,6 +39,8 @@ export function GuidelinePage() {
             <TooltipSection />
             <EmptySection/>
             <DialogSection/>
+            <TabsSection/>
+            <ChartCardSection/>
         </main>
     )
 }
