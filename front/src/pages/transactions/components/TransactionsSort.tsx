@@ -1,17 +1,18 @@
-import { Check, ArrowDownWideNarrow } from "lucide-react";
+import {
+    ArrowDownWideNarrow,
+    Check,
+} from "lucide-react";
 
 import { Button } from "@/shared/ui/button";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/shared/ui/popover";
+import { Popover } from "@/shared/ui/popover";
 
 import {
     TRANSACTION_SORT_OPTIONS,
 } from "../config/sort-options";
 
-import type { TransactionSort } from "@/entities/transaction/model";
+import type {
+    TransactionSort,
+} from "@/entities/transaction/model";
 
 interface Props {
     value: TransactionSort;
@@ -22,64 +23,46 @@ export function TransactionsSort({
     value,
     onChange,
 }: Props) {
-
-    const current = TRANSACTION_SORT_OPTIONS.find(
-        option => option.value === value,
-    );
-
+    const current =
+        TRANSACTION_SORT_OPTIONS.find(
+            option => option.value === value,
+        );
     return (
-        <Popover>
-
-            <PopoverTrigger asChild>
-
+        <Popover
+            trigger={
                 <Button variant="secondary">
-
                     <ArrowDownWideNarrow size={18} />
-
                     {current?.label}
-
                 </Button>
-
-            </PopoverTrigger>
-
-            <PopoverContent className="w-56 p-2">
-
-                <div className="space-y-1">
-
-                    {TRANSACTION_SORT_OPTIONS.map(option => (
-
-                        <button
-                            key={option.value}
-                            onClick={() => onChange(option.value)}
-                            className="
-                                flex
-                                w-full
-                                items-center
-                                justify-between
-                                rounded-xl
-                                px-3
-                                py-2
-                                text-left
-                                transition-colors
-                                hover:bg-[var(--color-surface-secondary)]
-                            "
-                        >
-
-                            {option.label}
-
-                            {value === option.value && (
-                                <Check size={16} />
-                            )}
-
-                        </button>
-
-                    ))}
-
-                </div>
-
-            </PopoverContent>
-
+            }
+        >
+            <div className="w-56 p-2 space-y-1">
+                {TRANSACTION_SORT_OPTIONS.map(option => (
+                    <button
+                        key={option.value}
+                        onClick={() =>
+                            onChange(option.value)
+                        }
+                        className="
+                            flex
+                            w-full
+                            items-center
+                            justify-between
+                            rounded-xl
+                            px-3
+                            py-2
+                            text-left
+                            transition-colors
+                            hover:bg-[var(--color-surface-secondary)]
+                        "
+                    >
+                        {option.label}
+                        {value === option.value && (
+                            <Check size={16} />
+                        )}
+                    </button>
+                ))}
+            </div>
         </Popover>
-
     );
 }

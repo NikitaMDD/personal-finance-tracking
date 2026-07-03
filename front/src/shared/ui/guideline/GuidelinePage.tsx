@@ -8,6 +8,7 @@ import { SkeletonSection } from "./sections/SkeletonSection"
 import { AvatarSection } from "./sections/AvatarSection"
 import { TooltipSection } from "./sections/TooltipSection";
 import { EmptySection } from "./sections/EmptySection";
+import { DialogSection } from "./sections/DialogSection";
 
 export function GuidelinePage() {
     return (
@@ -35,6 +36,7 @@ export function GuidelinePage() {
             <AvatarSection />
             <TooltipSection />
             <EmptySection/>
+            <DialogSection/>
         </main>
     )
 }

@@ -1,90 +1,63 @@
-import * as PopoverPrimitive
-    from "@radix-ui/react-popover";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
 
-import {
-    AnimatePresence,
-    motion,
-} from "framer-motion";
+import { motion } from "framer-motion";
 
-import {
-    forwardRef,
-} from "react";
+import { popoverContentStyles } from "./popover.styles";
 
-import {
-    popoverContentStyles,
-} from "./popover.styles";
+interface PopoverProps {
+    trigger: React.ReactNode;
+    children: React.ReactNode;
+    side?: "top" | "bottom" | "left" | "right";
+    align?: "center" | "start" | "end";
+    sideOffset?: number;
+}
 
-const Popover =
-    PopoverPrimitive.Root;
+export function Popover({
+    trigger,
+    children,
+    side = "bottom",
+    align = "end",
+    sideOffset = 8,
+}: PopoverProps) {
 
-const PopoverTrigger =
-    PopoverPrimitive.Trigger;
+    return (
+        <PopoverPrimitive.Root>
+            <PopoverPrimitive.Trigger
+                asChild
+            >
+                {trigger}
+            </PopoverPrimitive.Trigger>
 
-const PopoverAnchor =
-    PopoverPrimitive.Anchor;
+            <PopoverPrimitive.Portal>
+                <PopoverPrimitive.Content
+                    side={side}
+                    align={align}
+                    sideOffset={sideOffset}
+                    className={popoverContentStyles()}
+                    asChild
+                >
 
-const PopoverPortal =
-    PopoverPrimitive.Portal;
-
-const PopoverContent =
-    forwardRef<
-        HTMLDivElement,
-        PopoverPrimitive.PopoverContentProps
-    >(
-        (
-            {
-                className,
-                sideOffset = 8,
-                children,
-                ...props
-            },
-            ref,
-        ) => (
-            <PopoverPortal>
-                <AnimatePresence>
-                    <PopoverPrimitive.Content
-                        ref={ref}
-                        sideOffset={sideOffset}
-                        className={popoverContentStyles(
-                            className,
-                        )}
-                        asChild
-                        {...props}
+                    <motion.div
+                        initial={{
+                            opacity: 0,
+                            scale: .96,
+                            y: -6,
+                        }}
+                        animate={{
+                            opacity: 1,
+                            scale: 1,
+                            y: 0,
+                        }}
+                        transition={{
+                            duration: .18,
+                            ease: "easeOut",
+                        }}
                     >
-                        <motion.div
-                            initial={{
-                                opacity: 0,
-                                scale: .96,
-                                y: -6,
-                            }}
-                            animate={{
-                                opacity: 1,
-                                scale: 1,
-                                y: 0,
-                            }}
-                            exit={{
-                                opacity: 0,
-                                scale: .96,
-                                y: -6,
-                            }}
-                            transition={{
-                                duration: .18,
-                            }}
-                        >
-                            {children}
-                        </motion.div>
-                    </PopoverPrimitive.Content>
-                </AnimatePresence>
-            </PopoverPortal>
-        ),
+                        {children}
+                    </motion.div>
+
+                </PopoverPrimitive.Content>
+            </PopoverPrimitive.Portal>
+        </PopoverPrimitive.Root>
     );
-
-PopoverContent.displayName =
-    "PopoverContent";
-
-export {
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverAnchor,
-};
+}

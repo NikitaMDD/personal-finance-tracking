@@ -1,0 +1,67 @@
+import {
+    ShoppingBasket,
+    Car,
+    House,
+    Wallet,
+    Plane,
+    HeartPulse,
+} from "lucide-react";
+
+import type { Category } from "./category.types";
+
+export const categoriesMock: Category[] = [
+    {
+        id: "1",
+        title: "Продукты",
+        icon: ShoppingBasket,
+        color: "#22C55E",
+        operationsCount: 43,
+        totalAmount: 24890,
+        percent: 38,
+    },
+    {
+        id: "2",
+        title: "Транспорт",
+        icon: Car,
+        color: "#3B82F6",
+        operationsCount: 17,
+        totalAmount: 12100,
+        percent: 46,
+    },
+    {
+        id: "3",
+        title: "Дом",
+        icon: House,
+        color: "#8B5CF6",
+        operationsCount: 12,
+        totalAmount: 34600,
+        percent: 38,
+    },
+    {
+        id: "4",
+        title: "Развлечения",
+        icon: Plane,
+        color: "#F97316",
+        operationsCount: 8,
+        totalAmount: 9200,
+        percent: 50,
+    },
+    {
+        id: "5",
+        title: "Здоровье",
+        icon: HeartPulse,
+        color: "#EF4444",
+        operationsCount: 5,
+        totalAmount: 3100,
+        percent: 88,
+    },
+    {
+        id: "6",
+        title: "Прочее",
+        icon: Wallet,
+        color: "#64748B",
+        operationsCount: 14,
+        totalAmount: 5400,
+        percent: 10,
+    },
+];

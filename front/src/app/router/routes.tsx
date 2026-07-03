@@ -7,6 +7,7 @@ import { LoginAndRegisterPage } from "@/pages/auth";
 import { DashboardPage } from "@/pages/dashboard";
 import { GuidelinePage } from "@/shared/ui/guideline";
 import { TransactionsPage } from "@/pages/transactions";
+import { CategoriesPage } from "@/pages/categories";
 
 
 import { ROUTES } from "@/shared/constants/routes";
@@ -42,6 +43,11 @@ export const router = createBrowserRouter([
                     {
                         path: ROUTES.TRANSACTIONS,
                         element: <TransactionsPage />,
+                    },
+
+                    {
+                        path: ROUTES.CATEGORIES,
+                        element: <CategoriesPage />,
                     },
 
                     // {
