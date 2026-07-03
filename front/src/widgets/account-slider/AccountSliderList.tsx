@@ -16,13 +16,9 @@ import type {
 import { useEffect } from "react";
 
 interface Props {
-
     slider: AccountSliderController;
-
     accounts: Account[];
-
     selectedAccount: Account;
-
     onSelectAccount(
         account: Account,
     ): void;

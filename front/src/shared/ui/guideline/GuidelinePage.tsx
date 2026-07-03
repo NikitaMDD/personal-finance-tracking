@@ -11,6 +11,7 @@ import { EmptySection } from "./sections/EmptySection";
 import { DialogSection } from "./sections/DialogSection";
 import { TabsSection } from "./sections/TabsSection";
 import { ChartCardSection } from "./sections/ChartCardSection";
+import { ProgressRingSection } from "./sections/ProgressRingSection";
 
 export function GuidelinePage() {
     return (
@@ -41,6 +42,7 @@ export function GuidelinePage() {
             <DialogSection/>
             <TabsSection/>
             <ChartCardSection/>
+            <ProgressRingSection/>
         </main>
     )
 }

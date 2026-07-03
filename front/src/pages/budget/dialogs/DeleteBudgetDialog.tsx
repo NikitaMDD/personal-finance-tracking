@@ -4,24 +4,29 @@ import { Stack } from "@/shared/ui/stack";
 import { Typography } from "@/shared/ui/typography";
 
 import type {
-    Category,
-} from "@/entities/category/model";
+    Budget,
+} from "@/entities/budget/model";
 
 interface Props {
     open: boolean;
-    category: Category | null;
+
+    budget: Budget | null;
+
+    onDelete(): void;
+
     onOpenChange(
         open: boolean,
     ): void;
 }
 
-export function DeleteCategoryDialog({
+export function DeleteBudgetDialog({
     open,
-    category,
+    budget,
+    onDelete,
     onOpenChange,
 }: Props) {
 
-    if (!category) {
+    if (!budget) {
         return null;
     }
 
@@ -29,12 +34,12 @@ export function DeleteCategoryDialog({
         <Dialog
             open={open}
             onOpenChange={onOpenChange}
-            title="Удалить категорию"
+            title="Удалить бюджет"
         >
             <Typography>
-                Вы действительно хотите удалить категорию{" "}
+                Вы действительно хотите удалить бюджет{" "}
                 <strong>
-                    "{category.title}"
+                    "{budget.title}"
                 </strong>
                 ?
             </Typography>
@@ -56,10 +61,7 @@ export function DeleteCategoryDialog({
 
                 <Button
                     variant="danger"
-                    onClick={() => {
-                        console.log(category.id);
-                        onOpenChange(false);
-                    }}
+                    onClick={onDelete}
                 >
                     Удалить
                 </Button>

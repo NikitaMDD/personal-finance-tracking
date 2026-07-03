@@ -23,7 +23,16 @@ export function Select({
     placeholder,
     disabled,
     onValueChange,
+    renderValue,
+    renderOption,
 }: SelectProps) {
+
+    const selectedOption =
+        options.find(
+            option =>
+                option.value === value,
+        );
+
     return (
         <div className="space-y-2">
             {label && (
@@ -41,9 +50,35 @@ export function Select({
                         selectVariants(),
                     )}
                 >
-                    <SelectPrimitive.Value
-                        placeholder={placeholder}
-                    />
+                    <SelectPrimitive.Value asChild>
+
+                        <div
+                            className="
+                                flex
+                                items-center
+                                gap-3
+                            "
+                        >
+                            {selectedOption
+                                ? (
+                                    renderValue
+                                        ? renderValue(
+                                            selectedOption,
+                                        )
+                                        : selectedOption.label
+                                )
+                                : (
+                                    <span
+                                        className="
+                                            text-[var(--color-text-secondary)]
+                                        "
+                                    >
+                                        {placeholder}
+                                    </span>
+                                )}
+                        </div>
+
+                    </SelectPrimitive.Value>
                     <SelectPrimitive.Icon>
                         <ChevronDown
                             size={18}
@@ -84,8 +119,22 @@ export function Select({
                                         data-[highlighted]:bg-[var(--color-surface-secondary)]
                                     "
                                 >
-                                    <SelectPrimitive.ItemText>
-                                        {option.label}
+                                    <SelectPrimitive.ItemText asChild>
+
+                                        <div
+                                            className="
+                                                flex
+                                                items-center
+                                                gap-3
+                                            "
+                                        >
+
+                                            {renderOption
+                                                ? renderOption(option)
+                                                : option.label}
+
+                                        </div>
+
                                     </SelectPrimitive.ItemText>
                                     <SelectPrimitive.ItemIndicator>
                                         <Check

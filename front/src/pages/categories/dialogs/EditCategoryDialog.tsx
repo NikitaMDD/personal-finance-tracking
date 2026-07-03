@@ -8,7 +8,7 @@ import { CategoryForm } from "../forms/CategoryForm";
 
 interface Props {
     open: boolean;
-    category: Category;
+    category: Category | null;
     onOpenChange(
         open: boolean,
     ): void;
@@ -19,6 +19,11 @@ export function EditCategoryDialog({
     category,
     onOpenChange,
 }: Props) {
+
+    if (!category) {
+        return null;
+    }
+
     return (
         <Dialog
             open={open}
@@ -29,14 +34,20 @@ export function EditCategoryDialog({
             <CategoryForm
                 defaultValues={{
                     title: category.title,
+                    color: category.color,
+                    icon: category.icon,
+                    type: category.type,
                 }}
                 submitLabel="Сохранить"
                 onCancel={() =>
                     onOpenChange(false)
                 }
                 onSubmit={(values) => {
+
                     console.log(values);
+
                     onOpenChange(false);
+
                 }}
             />
         </Dialog>

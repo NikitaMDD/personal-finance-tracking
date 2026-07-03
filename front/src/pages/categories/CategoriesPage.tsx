@@ -1,3 +1,6 @@
+import { useHeader } from "@/shared/hooks/useHeader";
+import { useUIStore } from "@/shared/store/ui.store";
+
 import { useCategories } from "./hooks/useCategories";
 
 import { CategoriesHeader } from "./components/CategoriesHeader";
@@ -6,14 +9,10 @@ import { CategoriesGrid } from "./components/CategoriesGrid";
 import { CreateCategoryDialog } from "./dialogs/CreateCategoryDialog";
 import { EditCategoryDialog } from "./dialogs/EditCategoryDialog";
 import { DeleteCategoryDialog } from "./dialogs/DeleteCategoryDialog";
-import { useHeader } from "@/shared/hooks/useHeader";
-import { useUIStore } from "@/shared/store/ui.store";
-import { categoriesMock } from "@/entities/category/model/category.mock";
 
 export function CategoriesPage() {
 
-    const categories =
-        useCategories();
+    const categories = useCategories();
 
     useHeader({
         search: {
@@ -28,28 +27,25 @@ export function CategoriesPage() {
         );
 
     const filteredCategories =
-        categoriesMock.filter(category =>
-
+        categories.categories.filter(category =>
             category.title
                 .toLowerCase()
                 .includes(
                     search.toLowerCase(),
                 ),
-
         );
 
     return (
-
         <>
-
             <CategoriesHeader
                 onCreate={
                     categories.create.openDialog
                 }
             />
-
             <CategoriesGrid
-                categories={categories.categories}
+                categories={
+                    filteredCategories
+                }
                 onEdit={
                     categories.edit.openDialog
                 }
@@ -58,39 +54,31 @@ export function CategoriesPage() {
                 }
             />
             <CreateCategoryDialog
-                open={
-                    categories.create.open
-                }
-                onOpenChange={(open) =>
-                    open
-                        ? categories.create.openDialog()
-                        : categories.create.closeDialog()
+                open={categories.create.open}
+                onOpenChange={
+                    categories.create.closeDialog
                 }
             />
-            {categories.edit.category && (
+            {categories.edit.item && (
                 <EditCategoryDialog
-                    open
                     category={
-                        categories.edit.category
+                        categories.edit.item
                     }
-                    onOpenChange={(open) => {
-                        if (!open) {
-                            categories.edit.closeDialog();
-                        }
-                    }}
+                    open
+                    onOpenChange={
+                        categories.edit.closeDialog
+                    }
                 />
             )}
-            {categories.delete.category && (
+            {categories.delete.item && (
                 <DeleteCategoryDialog
-                    open
                     category={
-                        categories.delete.category
+                        categories.delete.item
                     }
-                    onOpenChange={(open) => {
-                        if (!open) {
-                            categories.delete.closeDialog();
-                        }
-                    }}
+                    open
+                    onOpenChange={
+                        categories.delete.closeDialog
+                    }
                 />
             )}
         </>

@@ -14,6 +14,7 @@ import { AnalyticsPage } from "@/pages/analytics";
 import { ROUTES } from "@/shared/constants/routes";
 import { ProtectedRoute } from "@/features/auth";
 import { GuestRoute } from "@/features/auth/";
+import { BudgetPage } from "@/pages/budget/BudgetPage";
 
 export const router = createBrowserRouter([
     {
@@ -40,20 +41,21 @@ export const router = createBrowserRouter([
                         path: ROUTES.DASHBOARD,
                         element: <DashboardPage />,
                     },
-
                     {
                         path: ROUTES.TRANSACTIONS,
                         element: <TransactionsPage />,
                     },
-
                     {
                         path: ROUTES.CATEGORIES,
                         element: <CategoriesPage />,
                     },
-
                     {
                         path: ROUTES.ANALYTICS,
                         element: <AnalyticsPage />,
+                    },
+                    {
+                        path: ROUTES.BUDGET,
+                        element: <BudgetPage />,
                     },
                 ],
             },
