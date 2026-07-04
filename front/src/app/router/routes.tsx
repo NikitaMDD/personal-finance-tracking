@@ -16,6 +16,8 @@ import { ProtectedRoute } from "@/features/auth";
 import { GuestRoute } from "@/features/auth/";
 import { BudgetPage } from "@/pages/budget/BudgetPage";
 
+import { NotFoundPage } from "@/pages/not-found";
+
 export const router = createBrowserRouter([
     {
         element: <GuestRoute />,
@@ -64,5 +66,9 @@ export const router = createBrowserRouter([
     {
         path: ROUTES.GUIDELINE,
         element: <GuidelinePage />,
+    },
+    {
+        path: ROUTES.NOT_FOUND,
+        element: <NotFoundPage />,
     },
 ]);

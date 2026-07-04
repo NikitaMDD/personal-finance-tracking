@@ -10,4 +10,6 @@ export const ROUTES = {
     PROFILE: '/profile',
     GUIDELINE: '/guideline',
     IMPORT: '/import',
+
+    NOT_FOUND: "*",
 } as const;
