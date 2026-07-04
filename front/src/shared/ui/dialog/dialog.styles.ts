@@ -12,7 +12,7 @@ export const dialogVariants = cva(
         -translate-y-1/2
 
         rounded-3xl
-        bg-white
+        bg-[var(--color-surface)]
 
         shadow-2xl
 

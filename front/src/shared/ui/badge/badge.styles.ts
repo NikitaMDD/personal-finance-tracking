@@ -16,7 +16,7 @@ export const badgeVariants = cva(
         variants: {
             variant: {
                 primary:
-                    "bg-[var(--color-primary)] text-white",
+                    "bg-[var(--color-primary)] text-[var(--color-text)]",
 
                 secondary:
                     "bg-[var(--color-surface-secondary)] text-[var(--color-text)]",

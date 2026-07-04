@@ -55,7 +55,7 @@ export function Switch({
                             h-5
                             w-5
                             rounded-full
-                            bg-white
+                            bg-[var(--color-surface)]
                             shadow
                             transition-transform
 

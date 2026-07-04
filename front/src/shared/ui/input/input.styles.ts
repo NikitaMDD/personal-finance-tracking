@@ -14,7 +14,8 @@ export function inputVariants({
         h-11
         rounded-[var(--radius-md)]
         border
-        bg-white
+        bg-[var(--color-input)]
+        hover:bg-[var(--color-input-hover)]
         px-4
         outline-none
         transition-all

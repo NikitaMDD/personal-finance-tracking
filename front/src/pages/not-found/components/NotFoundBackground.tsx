@@ -15,7 +15,7 @@ export function NotFoundBackground({
                 items-center
                 justify-center
                 overflow-hidden
-                bg-white
+                bg-[var(--color-surface)]
                 px-8
             "
         >

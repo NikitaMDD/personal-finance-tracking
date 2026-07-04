@@ -8,7 +8,6 @@ import { generateFall } from "../lib/generateFall";
 import { NotFoundGrid } from "./NotFoundGrid";
 import { NotFoundGraph } from "./NotFoundGraph";
 import { NotFoundPeak } from "./NotFoundPeak";
-import { NotFoundCrash } from "./NotFoundCrash";
 
 export function NotFoundChart() {
 

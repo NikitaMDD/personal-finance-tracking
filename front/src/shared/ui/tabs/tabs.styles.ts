@@ -15,7 +15,7 @@ export const tabsTriggerStyles = cva(
         text-sm
         font-medium
         transition-all
-        data-[state=active]:bg-white
+        data-[state=active]:bg-[var(--color-surface)]
         data-[state=active]:shadow
     `,
 );

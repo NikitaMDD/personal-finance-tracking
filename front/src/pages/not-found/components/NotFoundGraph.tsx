@@ -43,12 +43,12 @@ export function NotFoundGraph({
                 >
                     <stop
                         offset="0%"
-                        stopColor="#0F172A"
+                        stopColor="var(--color-chart-growth-start)"
                     />
 
                     <stop
                         offset="100%"
-                        stopColor="#1E293B"
+                        stopColor="var(--color-chart-growth-end)"
                     />
 
                 </linearGradient>
@@ -87,7 +87,7 @@ export function NotFoundGraph({
             <motion.path
                 d={fallPath}
                 fill="none"
-                stroke="#EF4444"
+                stroke="var(--color-chart-fall)"
                 strokeWidth={8}
                 strokeLinecap="round"
                 strokeLinejoin="round"

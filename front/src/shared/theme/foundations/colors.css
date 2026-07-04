@@ -29,12 +29,6 @@
   --color-danger: #dc2626;
   --color-info: #0ea5e9;
 
-  /* Surface */
-
-  --color-background: #FAFAFA;
-  --color-surface: #FFFFFF;
-  --color-surface-secondary: #F5F5F5;
-
   /* Interactive */
 
   --color-input: #FFFFFF;
@@ -46,6 +40,10 @@
 
   --color-button-secondary: #FFFFFF;
   --color-button-secondary-hover: #F8FAFC;
+
+  --color-chart-growth-start: #0F172A;
+  --color-chart-growth-end: #1E293B;
+  --color-chart-fall: #EF4444;
 
 }
 
@@ -81,12 +79,6 @@
   --color-danger: #EF4444;
   --color-info: #38BDF8;
 
-  /* Surface */
-
-  --color-background: #0F172A;
-  --color-surface: #1E293B;
-  --color-surface-secondary: #273449;
-
   /* Interactive */
 
   --color-input: #273449;
@@ -98,5 +90,9 @@
 
   --color-button-secondary: #334155;
   --color-button-secondary-hover: #475569;
+
+  --color-chart-growth-start: #F8FAFC;
+  --color-chart-growth-end: #CBD5E1;
+  --color-chart-fall: #F87171;
 
 }

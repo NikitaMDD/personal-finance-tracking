@@ -10,13 +10,13 @@ export function tooltipContentStyles(
 
             rounded-xl
 
-            bg-[var(--color-text)]
+            bg-[var(--color-surface)]
 
             px-3
             py-2
 
             text-xs
-            text-white
+            text-[var(--color-text)]
 
             shadow-lg
 

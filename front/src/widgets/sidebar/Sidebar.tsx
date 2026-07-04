@@ -16,7 +16,7 @@ export function Sidebar() {
         <motion.aside
             className={
                 cn(                
-                    'flex h-full flex-col border border-[var(--color-border)] bg-white py-6 ml-[12px] mr-[6px] rounded-3xl',
+                    'flex h-full flex-col border border-[var(--color-border)] bg-[var(--color-surface)] py-6 ml-[12px] mr-[6px] rounded-3xl',
                     collapsed ? 'w-20 px-3' : 'w-72 px-6'
                 )
             }

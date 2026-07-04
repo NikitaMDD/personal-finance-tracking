@@ -119,17 +119,13 @@ export function SecurityCard({
             >
 
                 <Button
-
                     variant="secondary"
-
                     onClick={
                         onChangePassword
                     }
-
                 >
 
                     Изменить пароль
-
                 </Button>
 
                 <Button

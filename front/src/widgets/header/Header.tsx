@@ -10,7 +10,7 @@ export function Header() {
                 justify-between
                 border
                 border-[var(--color-border)]
-                bg-white
+                bg-[var(--color-surface)]
                 rounded-3xl
                 ml-[6px]
                 mr-[12px]

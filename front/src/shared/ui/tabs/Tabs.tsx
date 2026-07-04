@@ -51,7 +51,7 @@ export function Tabs({
                                     absolute
                                     inset-0
                                     rounded-[var(--radius-sm)]
-                                    bg-white
+                                    bg-[var(--color-surface)]
                                     shadow-sm
                                 "
                                 transition={{

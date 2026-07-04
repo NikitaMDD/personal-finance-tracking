@@ -10,7 +10,7 @@ export const selectVariants = cva(
         rounded-2xl
         border
         border-[var(--color-border)]
-        bg-white
+        bg-[var(--color-input)]
         px-4
         text-sm
         transition-colors

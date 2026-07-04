@@ -14,10 +14,10 @@ interface ButtonVariantsProps {
 
 const variants: Record<ButtonVariant, string> = {
     primary:
-    "bg-[var(--color-primary)] text-white hover:opacity-90 active:scale-[0.98]",
+    "bg-[var(--color-primary)] text-[var(--color-text)] hover:opacity-90 active:scale-[0.98]",
 
     secondary:
-    "border border-[var(--color-border)] bg-white text-[var(--color-text)] hover:bg-[var(--color-surface-secondary)]",
+    "border border-[var(--color-border)] bg-[var(--color-button-secondary)] text-[var(--color-text)] hover:bg-[var(--color-button-secondary-hover)]",
 
     ghost:
     "bg-transparent hover:bg-[var(--color-surface-secondary)]",

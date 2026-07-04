@@ -65,7 +65,7 @@ export function ColorPicker({
                                 `
                                 : `
                                     border-[var(--color-border)]
-                                    bg-white
+                                    bg-[var(--color-surface)]
                                     hover:border-[var(--color-primary)]
                                     hover:bg-[var(--color-surface-secondary)]
                                 `,
