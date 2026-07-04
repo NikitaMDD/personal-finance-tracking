@@ -12,4 +12,8 @@ export const settingsMock: AppSettings = {
         push: true,
         telegram: false,
     },
+    security: {
+        lastLogin: "Сегодня, 11:42",
+        twoFactorEnabled: false,
+    },
 };

@@ -18,10 +18,16 @@ export interface NotificationSettings {
     telegram: boolean;
 }
 
+export interface SecuritySettings {
+    lastLogin: string;
+    twoFactorEnabled: boolean;
+}
+
 export interface AppSettings {
     theme: ThemeMode;
     currency: Currency;
     language: Language;
-    monthStartsFrom: number;
     notifications: NotificationSettings;
+    monthStartsFrom: number;
+    security: SecuritySettings;
 }

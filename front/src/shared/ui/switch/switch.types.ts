@@ -11,7 +11,6 @@ export interface SwitchProps
         typeof SwitchPrimitive.Root
     > {
     label?: ReactNode;
-    description?: ReactNode;
     helperText?: ReactNode;
     error?: string;
 }

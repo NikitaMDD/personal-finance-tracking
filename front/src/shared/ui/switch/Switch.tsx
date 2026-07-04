@@ -17,7 +17,6 @@ import type {
 
 export function Switch({
     label,
-    description,
     helperText,
     error,
     className,
@@ -25,6 +24,7 @@ export function Switch({
 }: SwitchProps) {
 
     return (
+
         <div className="space-y-2">
             <label
                 className="
@@ -34,27 +34,13 @@ export function Switch({
                     gap-4
                 "
             >
-                <div className="flex-1">
-                    {label && (
-                        <Typography
-                            variant="h3"
-                        >
-                            {label}
-                        </Typography>
-                    )}
-
-                    {description && (
-                        <Typography
-                            className="
-                                mt-1
-                                text-sm
-                                text-[var(--color-text-secondary)]
-                            "
-                        >
-                            {description}
-                        </Typography>
-                    )}
-                </div>
+                {label && (
+                    <Typography
+                        variant="body"
+                    >
+                        {label}
+                    </Typography>
+                )}
 
                 <SwitchPrimitive.Root
                     className={cn(
@@ -72,7 +58,6 @@ export function Switch({
                             bg-white
                             shadow
                             transition-transform
-                            duration-200
 
                             data-[state=checked]:translate-x-6
                             data-[state=unchecked]:translate-x-1
@@ -83,11 +68,13 @@ export function Switch({
 
             {(helperText || error) && (
                 <Typography
+                    variant="caption"
                     className={cn(
-                        "text-sm",
+
                         error
                             ? "text-[var(--color-danger)]"
                             : "text-[var(--color-text-secondary)]",
+
                     )}
                 >
                     {error ?? helperText}

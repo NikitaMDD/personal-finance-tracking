@@ -4,6 +4,10 @@ import {
     settingsMock,
 } from "@/entities/settings/model";
 
+import {
+    THEME_STORAGE_KEY,
+} from "@/shared/constants/theme";
+
 import type {
     ThemeMode,
     Currency,
@@ -14,7 +18,24 @@ import type {
 export function useSettings() {
 
     const [settings, setSettings] =
-        useState(settingsMock);
+        useState(() => {
+
+            const savedTheme =
+                localStorage.getItem(
+                    THEME_STORAGE_KEY,
+                ) as ThemeMode | null;
+
+            return {
+
+                ...settingsMock,
+
+                theme:
+                    savedTheme ??
+                    settingsMock.theme,
+
+            };
+
+        });
 
     function updateTheme(
         theme: ThemeMode,
@@ -69,19 +90,49 @@ export function useSettings() {
 
     }
 
-return {
+    function updateTwoFactor(
+        enabled: boolean,
+    ) {
 
-    settings,
+        setSettings(previous => ({
 
-    updateTheme,
+            ...previous,
 
-    updateCurrency,
+            security: {
 
-    updateLanguage,
+                ...previous.security,
 
-    updateNotifications,
+                twoFactorEnabled: enabled,
 
-    updateMonthStartsFrom,
+            },
 
-};
+        }));
+
+    }
+
+    function openChangePasswordDialog() {
+        console.log(
+            "Change password",
+        );
+    }
+
+    function logoutUser() {
+
+        console.log(
+            "Logout",
+        );
+
+    }
+
+    return {
+        settings,
+        updateTheme,
+        updateCurrency,
+        updateLanguage,
+        updateNotifications,
+        updateMonthStartsFrom,
+        updateTwoFactor,
+        openChangePasswordDialog,
+        logoutUser,
+    };
 }
