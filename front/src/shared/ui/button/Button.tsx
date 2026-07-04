@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 
+import { Spinner } from "@/shared/ui/spinner";
+
 import { buttonVariants } from "./button.styles";
 import type { ButtonProps } from "./button.types";
-import { Spinner } from "@/shared/ui/spinner"
 
 export function Button({
     children,
@@ -12,27 +13,61 @@ export function Button({
     fullWidth = false,
     disabled,
     className,
+    startContent,
+    endContent,
     ...props
 }: ButtonProps) {
+
     return (
+
         <motion.button
             whileTap={{
-                scale: 0.98,
+                scale: .98,
             }}
-            disabled={disabled || loading}
+            disabled={
+                disabled ||
+                loading
+            }
             className={buttonVariants({
                 variant,
                 size,
                 fullWidth,
-                className
+                className,
             })}
             {...props}
         >
-            {
-                loading
-                    ? <Spinner/>
-                    : children
-            }
+            {loading ? (
+                <Spinner />
+            ) : (
+                <>
+                    {startContent && (
+
+                        <span
+                            className="
+                                flex
+                                items-center
+                            "
+                        >
+                            {startContent}
+                        </span>
+                    )}
+
+                    <span>
+                        {children}
+                    </span>
+
+                    {endContent && (
+                        <span
+                            className="
+                                flex
+                                items-center
+                            "
+                        >
+                            {endContent}
+                        </span>
+                    )}
+                </>
+            )}
         </motion.button>
     );
 }

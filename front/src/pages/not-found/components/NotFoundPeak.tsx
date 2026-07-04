@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 
 interface Props {
-
     point: [number, number];
-
 }
 
 export function NotFoundPeak({

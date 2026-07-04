@@ -9,6 +9,8 @@ import { GuidelinePage } from "@/shared/ui/guideline";
 import { TransactionsPage } from "@/pages/transactions";
 import { CategoriesPage } from "@/pages/categories";
 import { AnalyticsPage } from "@/pages/analytics";
+import { ProfilePage } from "@/pages/profile";
+import { SettingsPage } from "@/pages/settings";
 
 
 import { ROUTES } from "@/shared/constants/routes";
@@ -59,6 +61,15 @@ export const router = createBrowserRouter([
                         path: ROUTES.BUDGET,
                         element: <BudgetPage />,
                     },
+                    {
+                        path: ROUTES.PROFILE,
+                        element: <ProfilePage />,
+                    },
+                    {
+                        path: ROUTES.SETTINGS,
+                        element: <SettingsPage />,
+                    },
+                    
                 ],
             },
         ],
@@ -71,4 +82,5 @@ export const router = createBrowserRouter([
         path: ROUTES.NOT_FOUND,
         element: <NotFoundPage />,
     },
+    
 ]);

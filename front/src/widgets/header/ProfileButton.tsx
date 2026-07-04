@@ -1,8 +1,13 @@
 import { Typography } from "@/shared/ui/typography";
 import { Button } from "@/shared/ui/button";
 import { Avatar } from "@/shared/ui/avatar";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/shared/constants/routes";
 
 export function ProfileButton() {
+
+    const navigate = useNavigate();
+
     return (
         <button
             className="
@@ -18,6 +23,9 @@ export function ProfileButton() {
                 hover:bg-[var(--color-surface-secondary)]
                 cursor-pointer
             "
+            onClick={
+                () => navigate(ROUTES.PROFILE)
+            }
         >
             <div
                 className="

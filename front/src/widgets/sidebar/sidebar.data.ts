@@ -49,6 +49,6 @@ export const sidebarBottomItems: SidebarItem[] = [
     {
         title: "Настройки",
         icon: Settings,
-        href: ROUTES.PROFILE,
+        href: ROUTES.SETTINGS,
     },
 ];

@@ -6,8 +6,8 @@ import type {
 } from "./button.types";
 
 interface ButtonVariantsProps {
-    variant: ButtonVariant;
-    size: ButtonSize;
+    variant?: ButtonVariant;
+    size?: ButtonSize;
     fullWidth?: boolean;
     className?: string;
 }

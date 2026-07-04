@@ -10,6 +10,7 @@ export const ROUTES = {
     PROFILE: '/profile',
     GUIDELINE: '/guideline',
     IMPORT: '/import',
+    SETTINGS: '/settings',
 
     NOT_FOUND: "*",
 } as const;
