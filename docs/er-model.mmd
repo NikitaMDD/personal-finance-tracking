@@ -1,0 +1,114 @@
+erDiagram
+	direction TB
+	USERS {
+		UUID id PK ""  
+		VARCHAR email UK ""  
+		VARCHAR password  ""  
+		VARCHAR first_name  ""  
+		VARCHAR last_name  ""  
+		VARCHAR phone  ""  
+		TEXT avatar_url  ""  
+		VARCHAR role  ""  
+		BOOLEAN premium  ""  
+		TIMESTAMP created_at  ""  
+		TIMESTAMP updated_at  ""  
+	}
+
+	SETTINGS {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		VARCHAR theme  ""  
+		VARCHAR language  ""  
+		VARCHAR currency  ""  
+		SMALLINT month_start_day  ""  
+		BOOLEAN email_notifications  ""  
+		BOOLEAN push_notifications  ""  
+		BOOLEAN budget_notifications  ""  
+	}
+
+	CATEGORIES {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		VARCHAR name  ""  
+		VARCHAR icon  ""  
+		VARCHAR color  ""  
+		VARCHAR type  ""  
+		TIMESTAMP created_at  ""  
+	}
+
+	BUDGETS {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		VARCHAR name  ""  
+		DECIMAL limit_amount  ""  
+		DECIMAL spent_amount  ""  
+		VARCHAR period  ""  
+		DATE start_date  ""  
+		DATE end_date  ""  
+		TIMESTAMP created_at  ""  
+	}
+
+	BUDGET_CATEGORIES {
+		UUID budget_id FK ""  
+		UUID category_id FK ""  
+	}
+
+	TRANSACTIONS {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		UUID category_id FK ""  
+		UUID bank_connection_id FK ""  
+		VARCHAR title  ""  
+		TEXT description  ""  
+		DECIMAL amount  ""  
+		VARCHAR type  ""  
+		TIMESTAMP transaction_date  ""  
+		TIMESTAMP created_at  ""  
+	}
+
+	BANKS {
+		UUID id PK ""  
+		VARCHAR code UK ""  
+		VARCHAR name  ""  
+		VARCHAR logo  ""  
+		VARCHAR color  ""  
+	}
+
+	BANK_CONNECTIONS {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		UUID bank_id FK ""  
+		VARCHAR external_account_id  ""  
+		BOOLEAN connected  ""  
+		TIMESTAMP connected_at  ""  
+	}
+
+	IMPORT_HISTORY {
+		UUID id PK ""  
+		UUID bank_connection_id FK ""  
+		VARCHAR file_name  ""  
+		INTEGER imported_rows  ""  
+		VARCHAR status  ""  
+		TIMESTAMP created_at  ""  
+	}
+
+	REFRESH_TOKENS {
+		UUID id PK ""  
+		UUID user_id FK ""  
+		TEXT token  ""  
+		TIMESTAMP expires_at  ""  
+		BOOLEAN revoked  ""  
+	}
+
+	USERS||--||SETTINGS:"owns"
+	USERS||--o{CATEGORIES:"creates"
+	USERS||--o{BUDGETS:"owns"
+	USERS||--o{TRANSACTIONS:"owns"
+	USERS||--o{BANK_CONNECTIONS:"connects"
+	USERS||--o{REFRESH_TOKENS:"has"
+	CATEGORIES||--o{TRANSACTIONS:"classifies"
+	BUDGETS||--o{BUDGET_CATEGORIES:"contains"
+	CATEGORIES||--o{BUDGET_CATEGORIES:"references"
+	BANKS||--o{BANK_CONNECTIONS:"provides"
+	BANK_CONNECTIONS||--o{TRANSACTIONS:"imports"
+	BANK_CONNECTIONS||--o{IMPORT_HISTORY:"stores"
