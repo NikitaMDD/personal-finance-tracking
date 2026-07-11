@@ -1,5 +1,6 @@
 package com.leviti.backend.modules.auth.jwt;
 
+import com.leviti.backend.modules.auth.security.CustomUserDetails;
 import com.leviti.backend.modules.user.entity.UserEntity;
 import com.leviti.backend.modules.user.service.UserService;
 import jakarta.servlet.FilterChain;
@@ -45,43 +46,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = authHeader.substring(7);
         String email = jwtService.extractEmail(token);
-        UserEntity user = userService.findByEmail(email);
-
-        if (jwtService.isTokenValid(token, user)) {
-
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            user.getEmail(),
-                            null,
-                            List.of()
-                    );
-
-            SecurityContextHolder
-                    .getContext()
-                    .setAuthentication(authentication);
-
-        }
 
         if (email != null &&
+                SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserEntity user =
+                    userService.findByEmail(email);
+
+            if (jwtService.isTokenValid(token, user)) {
+
+                CustomUserDetails userDetails =
+                        new CustomUserDetails(user);
+
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities()
+                        );
+
                 SecurityContextHolder
                         .getContext()
-                        .getAuthentication() == null) {
-
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            user,
-                            null,
-                            List.of()
-                    );
-
-            SecurityContextHolder
-                    .getContext()
-                    .setAuthentication(authentication);
-
+                        .setAuthentication(authentication);
+            }
         }
-        filterChain.doFilter(
-                request,
-                response
-        );
+
+        filterChain.doFilter(request, response);
     }
 }

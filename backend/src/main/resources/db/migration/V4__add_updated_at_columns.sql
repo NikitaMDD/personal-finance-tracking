@@ -1,0 +1,5 @@
+ALTER TABLE transactions
+ADD COLUMN updated_at TIMESTAMPTZ NOT NULL DEFAULT now();
+
+ALTER TABLE import_history
+ADD COLUMN updated_at TIMESTAMPTZ NOT NULL DEFAULT now();

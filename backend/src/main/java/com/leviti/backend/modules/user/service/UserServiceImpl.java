@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
                         .theme("SYSTEM")
                         .language("ru")
                         .currency("RUB")
-                        .monthStartDay(1)
+                        .monthStartDay((short) 1)
                         .emailNotifications(true)
                         .pushNotifications(true)
                         .budgetNotifications(true)
