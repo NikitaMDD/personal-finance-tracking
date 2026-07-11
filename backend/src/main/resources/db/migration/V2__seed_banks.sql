@@ -1,0 +1,36 @@
+INSERT INTO banks (
+    id,
+    code,
+    name,
+    logo,
+    color
+)
+VALUES
+    (
+        gen_random_uuid(),
+        'SBER',
+        'Сбербанк',
+        '/logos/sber.svg',
+        '#21A038'
+    ),
+    (
+        gen_random_uuid(),
+        'TBANK',
+        'Т-Банк',
+        '/logos/tbank.svg',
+        '#FFD400'
+    ),
+    (
+        gen_random_uuid(),
+        'ALFA',
+        'Альфа-Банк',
+        '/logos/alfa.svg',
+        '#EF3124'
+    ),
+    (
+        gen_random_uuid(),
+        'VTB',
+        'ВТБ',
+        '/logos/vtb.svg',
+        '#005BFF'
+    );
