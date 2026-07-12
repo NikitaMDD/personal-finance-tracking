@@ -1,8 +1,10 @@
 package com.leviti.backend.modules.transaction.service;
 
+import com.leviti.backend.modules.analytics.dto.CategoryStatisticResponse;
 import com.leviti.backend.modules.transaction.dto.request.CreateTransactionRequest;
 import com.leviti.backend.modules.transaction.dto.request.UpdateTransactionRequest;
 import com.leviti.backend.modules.transaction.dto.response.TransactionResponse;
+import com.leviti.backend.modules.transaction.dto.response.TransactionStatisticResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +29,14 @@ public interface TransactionService {
             String email,
             UUID id,
             UpdateTransactionRequest request
+    );
+
+    TransactionStatisticResponse getStatistics(
+            String email
+    );
+
+    List<CategoryStatisticResponse> getCategoryStatistics(
+            String email
     );
 
     void delete(

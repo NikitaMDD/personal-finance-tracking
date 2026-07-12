@@ -18,4 +18,5 @@ export interface EmptyProps
         title: string;
         description?: string;
         action?: ReactNode;
+        onAction?(): void;
     }

@@ -13,6 +13,7 @@ export interface AnalyticsSummary {
 }
 
 export interface ExpenseCategory {
+    id: string;
     categoryId: string;
     title: string;
     icon: CategoryIcon;

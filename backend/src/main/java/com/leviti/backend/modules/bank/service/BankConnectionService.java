@@ -2,6 +2,7 @@ package com.leviti.backend.modules.bank.service;
 
 import com.leviti.backend.modules.bank.dto.request.ConnectBankRequest;
 import com.leviti.backend.modules.bank.dto.response.BankConnectionResponse;
+import com.leviti.backend.modules.bank.dto.response.DashboardAccountResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,6 +15,10 @@ public interface BankConnectionService {
     );
 
     List<BankConnectionResponse> findAll(
+            String email
+    );
+
+    List<DashboardAccountResponse> getDashboardAccounts(
             String email
     );
 

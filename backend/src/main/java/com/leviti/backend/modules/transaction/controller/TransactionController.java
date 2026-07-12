@@ -1,8 +1,10 @@
 package com.leviti.backend.modules.transaction.controller;
 
+import com.leviti.backend.modules.analytics.dto.CategoryStatisticResponse;
 import com.leviti.backend.modules.transaction.dto.request.CreateTransactionRequest;
 import com.leviti.backend.modules.transaction.dto.request.UpdateTransactionRequest;
 import com.leviti.backend.modules.transaction.dto.response.TransactionResponse;
+import com.leviti.backend.modules.transaction.dto.response.TransactionStatisticResponse;
 import com.leviti.backend.modules.transaction.service.TransactionService;
 
 import jakarta.validation.Valid;
@@ -50,7 +52,29 @@ public class TransactionController {
 
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/statistics")
+    public TransactionStatisticResponse statistics(
+            Principal principal
+    ) {
+
+        return transactionService.getStatistics(
+                principal.getName()
+        );
+
+    }
+
+    @GetMapping("/statistics/categories")
+    public List<CategoryStatisticResponse> categoryStatistics(
+            Principal principal
+    ) {
+
+        return transactionService.getCategoryStatistics(
+                principal.getName()
+        );
+
+    }
+
+    @GetMapping("/{id:[0-9a-fA-F\\-]{36}}")
     public TransactionResponse findById(
             Principal principal,
             @PathVariable UUID id
@@ -63,7 +87,7 @@ public class TransactionController {
 
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id:[0-9a-fA-F\\-]{36}}")
     public TransactionResponse update(
             Principal principal,
             @PathVariable UUID id,
@@ -80,7 +104,7 @@ public class TransactionController {
 
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:[0-9a-fA-F\\-]{36}}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
             Principal principal,

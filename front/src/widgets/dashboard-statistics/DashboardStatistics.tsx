@@ -1,38 +1,60 @@
-import {
-    transactionsMock,
-} from "@/entities/transaction/model";
+import { motion } from "framer-motion";
 
 import {
-    getDashboardStatistics,
     formatAmount,
 } from "@/entities/transaction";
 
+import {
+    useTransactionStatistics,
+} from "@/entities/transaction/hooks/useTransactionStatistics";
+
 import { StatisticsCard } from "./StatisticsCard";
 
-import {
-    filterTransactionsByAccount,
-} from "@/entities/transaction";
+import { AnimatePresence } from "framer-motion";
 
-import { AnimatePresence, motion } from "framer-motion";
+export function DashboardStatistics() {
 
-interface Props {
-    accountId: string;
-}
+    const {
+        data,
+        isLoading,
+    } = useTransactionStatistics();
+    
+    if (isLoading || !data) {
+        return null;
+    }
 
-export function DashboardStatistics({
-    accountId,
-}: Props) {
+    const cards = [
 
-    const transactions =
-        filterTransactionsByAccount(
-            transactionsMock,
-            accountId,
-        );
+        {
+            title: "Доход",
+            value: formatAmount(
+                data.income,
+                "RUB",
+            ),
+        },
 
-    const statistics =
-        getDashboardStatistics(
-            transactions,
-        );
+        {
+            title: "Расход",
+            value: formatAmount(
+                data.expense,
+                "RUB",
+            ),
+        },
+
+        {
+            title: "Баланс",
+            value: formatAmount(
+                data.balance,
+                "RUB",
+            ),
+        },
+
+        {
+            title: "Экономия",
+            value: `${data.savings}%`,
+        },
+
+    ];
 
     return (
 
@@ -48,51 +70,28 @@ export function DashboardStatistics({
             "
         >
 
-            <motion.div layout>
+            <AnimatePresence>
 
-                <StatisticsCard
-                    title="Доход"
-                    value={formatAmount(
-                        statistics.income,
-                        "RUB",
-                    )}
-                />
+                {cards.map(card => (
 
-            </motion.div>
+                    <motion.div
+                        key={card.title}
+                        layout
+                    >
 
-            <motion.div layout>
+                        <StatisticsCard
+                            title={card.title}
+                            value={card.value}
+                        />
 
-                <StatisticsCard
-                    title="Расход"
-                    value={formatAmount(
-                        statistics.expenses,
-                        "RUB",
-                    )}
-                />
+                    </motion.div>
 
-            </motion.div>
+                ))}
 
-            <motion.div layout>
-
-                <StatisticsCard
-                    title="Баланс"
-                    value={formatAmount(
-                        statistics.balance,
-                        "RUB",
-                    )}
-                />
-
-            </motion.div>
-
-            <motion.div layout>
-
-                <StatisticsCard
-                    title="Экономия"
-                    value={`${statistics.savings}%`}
-                />
-
-            </motion.div>
+            </AnimatePresence>
 
         </section>
+
     );
+
 }

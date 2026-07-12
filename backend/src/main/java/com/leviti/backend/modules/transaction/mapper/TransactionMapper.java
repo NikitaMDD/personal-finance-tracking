@@ -16,8 +16,18 @@ public interface TransactionMapper {
             CreateTransactionRequest request
     );
 
-    @Mapping(target = "categoryId", source = "category.id")
-    @Mapping(target = "categoryName", source = "category.name")
+    @Mapping(
+            target = "bankConnectionId",
+            source = "bankConnection.id"
+    )
+    @Mapping(
+            target = "categoryId",
+            source = "category.id"
+    )
+    @Mapping(
+            target = "categoryName",
+            source = "category.name"
+    )
     TransactionResponse toResponse(
             TransactionEntity entity
     );
@@ -26,5 +36,4 @@ public interface TransactionMapper {
             UpdateTransactionRequest request,
             @MappingTarget TransactionEntity entity
     );
-
 }

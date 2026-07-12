@@ -91,4 +91,22 @@ public interface TransactionRepository
             UUID userId
     );
 
+    @Query("""
+        SELECT
+        COALESCE(
+        SUM(
+        CASE
+        WHEN t.type='INCOME'
+        THEN t.amount
+        ELSE -t.amount
+        END
+        ),0)
+        FROM TransactionEntity t
+        WHERE t.bankConnection.id = :connectionId
+    """)
+    BigDecimal getBalanceByBankConnection(
+            @Param("connectionId")
+            UUID connectionId
+    );
+
 }

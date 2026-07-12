@@ -1,16 +1,18 @@
 package com.leviti.backend.modules.bank.controller;
 
+import com.leviti.backend.modules.auth.security.CustomUserDetails;
 import com.leviti.backend.modules.bank.dto.request.ConnectBankRequest;
 import com.leviti.backend.modules.bank.dto.response.BankConnectionResponse;
+import com.leviti.backend.modules.bank.dto.response.DashboardAccountResponse;
 import com.leviti.backend.modules.bank.service.BankConnectionService;
 
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,50 +25,50 @@ public class BankConnectionController {
 
     @PostMapping
     public BankConnectionResponse connect(
+            @AuthenticationPrincipal
+            CustomUserDetails user,
 
-            Principal principal,
-
-            @RequestBody
             @Valid
+            @RequestBody
             ConnectBankRequest request
-
     ) {
-
         return bankConnectionService.connect(
-                principal.getName(),
+                user.getUsername(),
                 request
         );
-
     }
 
     @GetMapping
     public List<BankConnectionResponse> findAll(
-
-            Principal principal
-
+            @AuthenticationPrincipal
+            CustomUserDetails user
     ) {
-
         return bankConnectionService.findAll(
-                principal.getName()
+                user.getUsername()
         );
+    }
 
+    @GetMapping("/dashboard")
+    public List<DashboardAccountResponse> getDashboardAccounts(
+            @AuthenticationPrincipal
+            CustomUserDetails user
+    ) {
+        return bankConnectionService.getDashboardAccounts(
+                user.getUsername()
+        );
     }
 
     @DeleteMapping("/{id}")
     public void disconnect(
-
-            Principal principal,
+            @AuthenticationPrincipal
+            CustomUserDetails user,
 
             @PathVariable
             UUID id
-
     ) {
-
         bankConnectionService.disconnect(
-                principal.getName(),
+                user.getUsername(),
                 id
         );
-
     }
-
 }

@@ -3,7 +3,7 @@ import { formatAmount } from "@/entities/transaction";
 
 import type {
     ExpenseCategory,
-} from "./category.types";
+} from "@/entities/analytics/model";
 
 import { motion } from "framer-motion";
 

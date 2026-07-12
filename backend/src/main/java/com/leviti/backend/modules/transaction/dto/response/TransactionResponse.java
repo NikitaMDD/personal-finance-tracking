@@ -7,21 +7,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record TransactionResponse(
-
         UUID id,
-
+        UUID bankConnectionId,
         UUID categoryId,
-
         String categoryName,
-
         String title,
-
         String description,
-
         BigDecimal amount,
-
         TransactionType type,
-
         LocalDateTime transactionDate
-
 ) {}

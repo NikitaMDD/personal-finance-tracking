@@ -27,6 +27,7 @@ export const analyticsMock: Record<
 
         categories: [
             {
+                id: "1",
                 categoryId: "products",
                 title: "Продукты",
                 icon: "shopping-basket",
@@ -35,6 +36,7 @@ export const analyticsMock: Record<
                 percent: 33,
             },
             {
+                id: "2",
                 categoryId: "transport",
                 title: "Транспорт",
                 icon: "car",
@@ -43,6 +45,7 @@ export const analyticsMock: Record<
                 percent: 22,
             },
             {
+                id: "3",
                 categoryId: "cafe",
                 title: "Кафе",
                 icon: "restaurant",
@@ -51,6 +54,7 @@ export const analyticsMock: Record<
                 percent: 16,
             },
             {
+                id: "4",
                 categoryId: "other",
                 title: "Другое",
                 icon: "gift",
@@ -89,6 +93,7 @@ export const analyticsMock: Record<
 
         categories: [
             {
+                id: "1",
                 categoryId: "products",
                 title: "Продукты",
                 icon: "shopping-basket",
@@ -97,6 +102,7 @@ export const analyticsMock: Record<
                 percent: 24,
             },
             {
+                id: "2",
                 categoryId: "transport",
                 title: "Транспорт",
                 icon: "car",
@@ -105,6 +111,7 @@ export const analyticsMock: Record<
                 percent: 19,
             },
             {
+                id: "3",
                 categoryId: "house",
                 title: "Дом",
                 icon: "house",
@@ -113,6 +120,7 @@ export const analyticsMock: Record<
                 percent: 14,
             },
             {
+                id: "4",
                 categoryId: "entertainment",
                 title: "Развлечения",
                 icon: "gamepad",
@@ -121,6 +129,7 @@ export const analyticsMock: Record<
                 percent: 12,
             },
             {
+                id: "5",
                 categoryId: "other",
                 title: "Другое",
                 icon: "gift",
@@ -184,6 +193,7 @@ export const analyticsMock: Record<
 
         categories: [
             {
+                id: "1",
                 categoryId: "products",
                 title: "Продукты",
                 icon: "shopping-basket",
@@ -192,6 +202,7 @@ export const analyticsMock: Record<
                 percent: 24,
             },
             {
+                id: "2",
                 categoryId: "transport",
                 title: "Транспорт",
                 icon: "car",
@@ -200,6 +211,7 @@ export const analyticsMock: Record<
                 percent: 16,
             },
             {
+                id: "3",
                 categoryId: "house",
                 title: "Дом",
                 icon: "house",
@@ -208,6 +220,7 @@ export const analyticsMock: Record<
                 percent: 15,
             },
             {
+                id: "4",
                 categoryId: "travel",
                 title: "Путешествия",
                 icon: "plane",
@@ -216,6 +229,7 @@ export const analyticsMock: Record<
                 percent: 18,
             },
             {
+                id: "5",
                 categoryId: "other",
                 title: "Другое",
                 icon: "gift",

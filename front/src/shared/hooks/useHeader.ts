@@ -6,30 +6,23 @@ import {
 } from "@/shared/store/ui.store";
 
 export function useHeader(
-    config: Partial<HeaderConfig>,
+    config: HeaderConfig,
 ) {
-
-    const configureHeader =
-        useUIStore(
-            (state) => state.configureHeader,
-        );
-
-    const resetHeader =
-        useUIStore(
-            (state) => state.resetHeader,
-        );
 
     useEffect(() => {
 
-        configureHeader(config);
+        useUIStore
+            .getState()
+            .configureHeader(config);
 
         return () => {
-            resetHeader();
+
+            useUIStore
+                .getState()
+                .resetHeader();
+
         };
 
-    }, [
-        config,
-        configureHeader,
-        resetHeader,
-    ]);
+    }, []);
+
 }

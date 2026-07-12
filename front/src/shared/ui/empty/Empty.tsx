@@ -6,12 +6,14 @@ import { cn } from "@/shared/lib/cn";
 
 import { emptyVariants } from "./empty.styles";
 import type { EmptyProps } from "./empty.types";
+import { Button } from "@/shared/ui/button";
 
 export function Empty({
     icon,
     title,
     description,
     action,
+    onAction,
     className,
     ...props
 }: EmptyProps) {
@@ -59,10 +61,13 @@ export function Empty({
                     {description}
                 </Typography>
             )}
-            {action && (
-                <div className="mt-8">
+            {action && onAction && (
+                <Button
+                    className="mt-8"
+                    onClick={onAction}
+                >
                     {action}
-                </div>
+                </Button>
             )}
         </div>
     );
