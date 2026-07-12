@@ -30,3 +30,8 @@ server:
 jwt:
   secret: 5D34F7C1B12A4AEE3AFC2E6A0D43CBB4D7E2A7F5C9E5B2D1A8F4C3E6B1D9A7F2
   access-token-expiration: 3600000
+
+app:
+  cors:
+    allowed-origins:
+      - http://localhost:5173

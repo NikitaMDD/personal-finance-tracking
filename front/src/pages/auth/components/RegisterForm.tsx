@@ -2,40 +2,85 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 
 import {
-  useRegisterForm,
+    useRegisterForm,
 } from "@/features/auth/hooks/useRegisterForm";
-import { useRegisterMutation } from "@/features/auth/hooks/useRegisterMutation";
-import type { RegisterFormData } from "@/features/auth/model/register.schema"
 
-export function RegisterForm() {
+import {
+    useRegisterMutation,
+} from "@/features/auth/hooks/useRegisterMutation";
+
+import type {
+    RegisterFormData,
+} from "@/features/auth/model/register.schema";
+
+import { useToast } from "@/shared/ui/toast";
+
+interface Props {
+    onSuccess(
+        email: string,
+    ): void;
+}
+
+export function RegisterForm({
+    onSuccess,
+}: Props) {
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: {
+            errors,
+        },
     } = useRegisterForm();
 
     const registerMutation = useRegisterMutation();
+    const toast = useToast();
 
     const onSubmit = async (
         data: RegisterFormData,
     ) => {
+
+        const {
+            confirmPassword,
+            ...request
+        } = data;
+
         await registerMutation.mutateAsync(
-            data,
+            request,
         );
+
+        toast.success(
+            "Аккаунт успешно создан",
+            "Теперь войдите в систему.",
+        );
+
+        onSuccess(
+            data.email,
+        );
+
     };
 
     return (
-        <form 
+
+        <form
             className="space-y-4"
             onSubmit={handleSubmit(onSubmit)}
         >
+
             <Input
                 label="Имя"
                 placeholder="Введите имя"
                 fullWidth
-                error={errors.name?.message}
-                {...register("name")}
+                error={errors.firstName?.message}
+                {...register("firstName")}
+            />
+
+            <Input
+                label="Фамилия"
+                placeholder="Введите фамилию"
+                fullWidth
+                error={errors.lastName?.message}
+                {...register("lastName")}
             />
 
             <Input
@@ -45,6 +90,14 @@ export function RegisterForm() {
                 fullWidth
                 error={errors.email?.message}
                 {...register("email")}
+            />
+
+            <Input
+                label="Телефон"
+                placeholder="+7 (999) 999-99-99"
+                fullWidth
+                error={errors.phone?.message}
+                {...register("phone")}
             />
 
             <Input
@@ -67,13 +120,14 @@ export function RegisterForm() {
 
             <Button
                 type="submit"
-                loading={
-                    registerMutation.isPending
-                }
+                loading={registerMutation.isPending}
                 fullWidth
             >
                 Создать аккаунт
             </Button>
+
         </form>
-    )
+
+    );
+
 }

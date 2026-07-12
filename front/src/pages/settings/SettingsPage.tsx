@@ -10,6 +10,11 @@ import { SecurityCard } from "./components/SecurityCard";
 import { AboutCard } from "./components/AboutCard";
 import { useTheme } from "@/shared/hooks/useTheme";
 
+import { useAuth } from "@/shared/auth";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/shared/ui/toast";
+import { ROUTES } from "@/shared/constants/routes";
+
 export function SettingsPage() {
 
     const settings =
@@ -25,6 +30,27 @@ export function SettingsPage() {
             placeholder: "",
         },
     });
+
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+    const toast = useToast();
+
+    const handleLogout = () => {
+
+        logout();
+
+        toast.success(
+            "Вы успешно вышли из системы",
+        );
+
+        navigate(
+            ROUTES.AUTH,
+            {
+                replace: true,
+            },
+        );
+
+    };
 
     return (
 
@@ -74,7 +100,7 @@ export function SettingsPage() {
                     settings.openChangePasswordDialog
                 }
                 onLogout={
-                    settings.logoutUser
+                    handleLogout
                 }
             />
 

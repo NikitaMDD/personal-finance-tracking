@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 
+// import { toast } from "sonner";
+
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 
@@ -10,6 +12,9 @@ type AuthTab = "login" | "register";
 export function AuthTabs() {
     const [activeTab, setActiveTab] =
         useState<AuthTab>("login");
+
+    const [emailAfterRegister, setEmailAfterRegister] =
+        useState("");
 
     return (
         <div className="w-full">
@@ -44,7 +49,7 @@ export function AuthTabs() {
                                 absolute
                                 inset-0
                                 rounded-[var(--radius-sm)]
-                                bg-white
+                                bg-[var(--color-surface)]
                                 shadow-sm
                             "
                             transition={{
@@ -77,7 +82,7 @@ export function AuthTabs() {
                                 absolute
                                 inset-0
                                 rounded-[var(--radius-sm)]
-                                bg-white
+                                bg-[var(--color-surface)]
                                 shadow-sm
                             "
                             transition={{
@@ -121,7 +126,11 @@ export function AuthTabs() {
                                 duration: 0.2,
                             }}
                         >
-                            <LoginForm />
+                            <LoginForm
+                                initialEmail={
+                                    emailAfterRegister
+                                }
+                            />
                         </motion.div>
                     ) : (
                         <motion.div
@@ -143,7 +152,14 @@ export function AuthTabs() {
                                 duration: 0.2,
                             }}
                         >
-                            <RegisterForm />
+                            <RegisterForm
+                                onSuccess={(email) => {
+                                    setEmailAfterRegister(
+                                        email,
+                                    );
+                                    setActiveTab("login");
+                                }}
+                            />
                         </motion.div>
                     )}
                 </AnimatePresence>

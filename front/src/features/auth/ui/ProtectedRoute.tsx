@@ -1,10 +1,21 @@
-import { Navigate, Outlet } from "react-router-dom";
+import {
+    Navigate,
+    Outlet,
+} from "react-router-dom";
 
-import { ROUTES } from "@/shared/constants/routes";
 import { useAuth } from "@/shared/auth";
+import { ROUTES } from "@/shared/constants/routes";
 
 export function ProtectedRoute() {
-    const { isAuthenticated } = useAuth();
+
+    const {
+        isAuthenticated,
+        isLoading,
+    } = useAuth();
+
+    if (isLoading) {
+        return <>Loading...</>;
+    }
 
     if (!isAuthenticated) {
         return (
@@ -14,6 +25,5 @@ export function ProtectedRoute() {
             />
         );
     }
-
     return <Outlet />;
 }

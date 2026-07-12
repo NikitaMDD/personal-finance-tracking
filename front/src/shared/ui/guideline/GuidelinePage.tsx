@@ -12,6 +12,7 @@ import { DialogSection } from "./sections/DialogSection";
 import { TabsSection } from "./sections/TabsSection";
 import { ChartCardSection } from "./sections/ChartCardSection";
 import { ProgressRingSection } from "./sections/ProgressRingSection";
+import { ToastSection } from "./sections/ToastSection";
 
 export function GuidelinePage() {
     return (
@@ -43,6 +44,7 @@ export function GuidelinePage() {
             <TabsSection/>
             <ChartCardSection/>
             <ProgressRingSection/>
+            <ToastSection/>
         </main>
     )
 }

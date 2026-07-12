@@ -1,56 +1,119 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/button";
+
+import { ROUTES } from "@/shared/constants/routes";
+
+import { useAuth } from "@/shared/auth";
+
 import { useLoginForm } from "@/features/auth/hooks/useLoginForm";
 import { useLoginMutation } from "@/features/auth/hooks/useLoginMutation";
-import type { LoginFormData } from "@/features/auth/model/login.schema"
-import { useAuth } from "@/shared/auth";
-import { ROUTES } from "@/shared/constants/routes";
-import { useNavigate } from "react-router-dom";
-import { DEV_USER } from "@/features/auth/model/dev-user";
-export function LoginForm() {
+
+import { useToast } from "@/shared/ui/toast";
+
+import type {
+    LoginFormData,
+} from "@/features/auth/model/login.schema";
+
+interface Props {
+    initialEmail?: string;
+}
+
+export function LoginForm({initialEmail}: Props) {
 
     const {
+
         register,
+
         handleSubmit,
-        formState: {errors},
+
+        formState: {
+
+            errors,
+
+        },
+
+        setValue,
+
     } = useLoginForm();
 
-    const loginMutation = useLoginMutation();
+    const {
+        login,
+    } = useAuth();
 
-    const { login } = useAuth();
+    const toast = useToast();
+
+    useEffect(() => {
+        if (initialEmail) {
+            setValue(
+                "email",
+                initialEmail,
+            );
+        }
+    }, [
+        initialEmail,
+        setValue,
+    ]);
+
     const navigate = useNavigate();
+
+    const loginMutation = useLoginMutation();
 
     const onSubmit = async (
         data: LoginFormData,
     ) => {
-        
-        if (
-            data.email === DEV_USER.email &&
-            data.password === DEV_USER.password
-        ) {
-            login(
-                DEV_USER.accessToken,
-                DEV_USER.refreshToken,
+
+        try {
+
+            const response =
+                await loginMutation.mutateAsync(
+                    data,
+                );
+
+            await login(
+                response.accessToken,
+                response.refreshToken ?? "",
             );
 
-            navigate(ROUTES.DASHBOARD);
+            toast.success(
+                "Добро пожаловать!",
+            );
 
-            return;
+            navigate(
+                ROUTES.DASHBOARD,
+            );
+
+        } catch {
+            toast.error(
+                "Не удалось выполнить вход",
+                "Проверьте email и пароль.",
+            );
         }
 
     };
 
     return (
-        <form 
+
+        <form
+
             className="space-y-4"
-            onSubmit={handleSubmit(onSubmit)}
+
+            onSubmit={handleSubmit(
+                onSubmit,
+            )}
+
         >
+
             <Input
                 label="Email"
-                placeholder="example@gmail.com"
+                placeholder="example@mail.com"
                 type="email"
                 fullWidth
-                error={errors.email?.message}
+                error={
+                    errors.email?.message
+                }
                 {...register("email")}
             />
 
@@ -59,11 +122,13 @@ export function LoginForm() {
                 placeholder="Введите пароль"
                 type="password"
                 fullWidth
-                error={errors.password?.message}
+                error={
+                    errors.password?.message
+                }
                 {...register("password")}
             />
 
-            <Button 
+            <Button
                 type="submit"
                 loading={
                     loginMutation.isPending
@@ -72,6 +137,9 @@ export function LoginForm() {
             >
                 Войти
             </Button>
+
         </form>
-    )
+
+    );
+
 }

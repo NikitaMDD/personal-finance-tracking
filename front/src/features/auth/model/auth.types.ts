@@ -4,12 +4,14 @@ export interface LoginRequest {
 }
 
 export interface RegisterRequest {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    phone?: string;
     password: string;
 }
 
 export interface AuthResponse {
     accessToken: string;
-    refreshToken: string;
+    refreshToken?: string;
 }

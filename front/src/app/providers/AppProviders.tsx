@@ -5,6 +5,7 @@ import type {
 import { AuthProvider } from "./AuthProvider";
 import { QueryProvider } from "./QueryProvider";
 import { TooltipProvider } from "./TooltipProvider";
+import {ToastProvider} from "@/shared/ui/toast";
 
 export function AppProviders({
     children,
@@ -12,9 +13,11 @@ export function AppProviders({
     return (
         <QueryProvider>
             <AuthProvider>
-                <TooltipProvider>
-                    {children}
-                </TooltipProvider>
+                <ToastProvider>
+                    <TooltipProvider>
+                        {children}
+                    </TooltipProvider>
+                </ToastProvider>
             </AuthProvider>
         </QueryProvider>
     );

@@ -116,14 +116,6 @@ export function useSettings() {
         );
     }
 
-    function logoutUser() {
-
-        console.log(
-            "Logout",
-        );
-
-    }
-
     return {
         settings,
         updateTheme,
@@ -133,6 +125,5 @@ export function useSettings() {
         updateMonthStartsFrom,
         updateTwoFactor,
         openChangePasswordDialog,
-        logoutUser,
     };
 }
