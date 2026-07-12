@@ -15,6 +15,9 @@ export function toTransaction(
         categoryId:
             transaction.categoryId,
 
+        categoryName:
+            transaction.categoryName,
+
         title:
             transaction.title,
 
@@ -35,4 +38,5 @@ export function toTransaction(
             transaction.transactionDate,
 
     };
+
 }

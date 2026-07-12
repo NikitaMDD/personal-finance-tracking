@@ -16,6 +16,8 @@ import {
     TransactionsContent,
 } from "./components";
 
+import { TransactionDialog } from "@/features/transaction/components/TransactionDialog";
+
 export function TransactionsPage() {
 
     useHeader({
@@ -31,10 +33,19 @@ export function TransactionsPage() {
     const [sort, setSort] =
         useState<TransactionSort>("newest");
 
+    const [
+        transactionDialogOpen,
+        setTransactionDialogOpen,
+    ] = useState(false);
+
     return (
         <div className="space-y-8">
 
-            <TransactionsHeader />
+            <TransactionsHeader
+                onCreate={() =>
+                    setTransactionDialogOpen(true)
+                }
+            />
 
             <TransactionsToolbar
                 filter={filter}
@@ -47,6 +58,13 @@ export function TransactionsPage() {
             <TransactionsContent
                 filter={filter}
                 sort={sort}
+            />
+
+            <TransactionDialog
+                open={transactionDialogOpen}
+                onOpenChange={
+                    setTransactionDialogOpen
+                }
             />
 
         </div>

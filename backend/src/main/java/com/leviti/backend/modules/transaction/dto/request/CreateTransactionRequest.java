@@ -11,6 +11,9 @@ import java.util.UUID;
 public record CreateTransactionRequest(
 
         @NotNull
+        UUID bankConnectionId,
+
+        @NotNull
         UUID categoryId,
 
         @NotBlank

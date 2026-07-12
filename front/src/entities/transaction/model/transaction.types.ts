@@ -15,6 +15,7 @@ export interface Transaction {
     description?: string;
     amount: number;
     currency: Currency;
+    categoryName: string;
     type: TransactionType;
     date: string;
     merchant?: string;

@@ -1,6 +1,6 @@
 export interface TransactionResponse {
     id: string;
-    bankConnectionId: string | null;
+    bankConnectionId?: string;
     categoryId: string;
     categoryName: string;
     title: string;

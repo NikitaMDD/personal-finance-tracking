@@ -1,5 +1,6 @@
 package com.leviti.backend.modules.user.service;
 
+import com.leviti.backend.modules.category.service.DefaultCategoryService;
 import com.leviti.backend.modules.settings.entity.SettingsEntity;
 import com.leviti.backend.modules.settings.repository.SettingsRepository;
 import com.leviti.backend.modules.user.dto.request.CreateUserRequest;
@@ -10,6 +11,7 @@ import com.leviti.backend.modules.user.mapper.UserMapper;
 import com.leviti.backend.modules.user.repository.UserRepository;
 import com.leviti.backend.shared.exception.ConflictException;
 import com.leviti.backend.shared.exception.ResourceNotFoundException;
+import com.leviti.backend.modules.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,6 +31,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final SettingsRepository settingsRepository;
+
+    private final DefaultCategoryService defaultCategoryService;
 
     @Override
     public UserResponse create(
@@ -63,6 +67,10 @@ public class UserServiceImpl implements UserService {
                         .build();
 
         settingsRepository.save(settings);
+
+        defaultCategoryService.createDefaultCategories(
+                entity
+        );
 
         return userMapper.toResponse(entity);
 

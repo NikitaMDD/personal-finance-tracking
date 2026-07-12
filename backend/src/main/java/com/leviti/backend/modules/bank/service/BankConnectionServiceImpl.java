@@ -106,6 +106,29 @@ public class BankConnectionServiceImpl
 
     @Override
     @Transactional(readOnly = true)
+    public BankConnectionEntity findEntityById(
+            String email,
+            UUID id
+    ) {
+
+        UserEntity user =
+                userService.findByEmail(email);
+
+        return bankConnectionRepository
+                .findByIdAndUser_Id(
+                        id,
+                        user.getId()
+                )
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Bank connection not found."
+                        )
+                );
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<DashboardAccountResponse> getDashboardAccounts(
             String email
     ) {

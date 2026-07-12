@@ -8,6 +8,10 @@ import type {
     ConnectBankRequest,
 } from "@/features/bank-connection/model/connect-bank.types";
 
+import type {
+    BankConnectionResponse
+} from "../model/bank-connection.types";
+
 export const bankConnectionApi = {
     dashboard() {
         return api<DashboardAccountResponse[]>(
@@ -24,6 +28,13 @@ export const bankConnectionApi = {
                 method: "POST",
                 body: JSON.stringify(data),
             },
+        );
+
+    },
+    findAll() {
+
+        return api<BankConnectionResponse[]>(
+            "/bank-connections",
         );
 
     },

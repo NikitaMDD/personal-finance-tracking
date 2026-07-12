@@ -4,6 +4,7 @@ import com.leviti.backend.modules.category.dto.request.CreateCategoryRequest;
 import com.leviti.backend.modules.category.dto.request.UpdateCategoryRequest;
 import com.leviti.backend.modules.category.dto.response.CategoryResponse;
 import com.leviti.backend.modules.category.entity.CategoryEntity;
+import com.leviti.backend.modules.user.entity.UserEntity;
 
 import java.util.List;
 import java.util.UUID;

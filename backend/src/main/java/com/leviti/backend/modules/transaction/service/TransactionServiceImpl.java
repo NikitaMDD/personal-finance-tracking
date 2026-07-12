@@ -22,6 +22,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.leviti.backend.modules.bank.entity.BankConnectionEntity;
+import com.leviti.backend.modules.bank.service.BankConnectionService;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +38,7 @@ public class TransactionServiceImpl
     private final TransactionMapper transactionMapper;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final BankConnectionService bankConnectionService;
 
     @Override
     public TransactionResponse create(
@@ -51,12 +55,18 @@ public class TransactionServiceImpl
                         request.categoryId()
                 );
 
+        BankConnectionEntity bankConnection =
+                bankConnectionService.findEntityById(
+                        email,
+                        request.bankConnectionId()
+                );
+
         TransactionEntity entity =
                 transactionMapper.toEntity(request);
 
         entity.setUser(user);
-
         entity.setCategory(category);
+        entity.setBankConnection(bankConnection);
 
         return transactionMapper.toResponse(
                 transactionRepository.save(entity)
@@ -118,12 +128,19 @@ public class TransactionServiceImpl
                         request.categoryId()
                 );
 
+        BankConnectionEntity bankConnection =
+                bankConnectionService.findEntityById(
+                        email,
+                        request.bankConnectionId()
+                );
+
         transactionMapper.updateEntity(
                 request,
                 entity
         );
 
         entity.setCategory(category);
+        entity.setBankConnection(bankConnection);
 
         return transactionMapper.toResponse(
                 transactionRepository.save(entity)

@@ -20,6 +20,7 @@ export function TransactionAmount({
     currency,
     type,
 }: Props) {
+
     return (
         <Typography
             variant="body"
@@ -29,6 +30,7 @@ export function TransactionAmount({
                     : "text-red-500"
             }
         >
+            {type === "income" ? "+ " : "- "}
             {formatAmount(
                 amount,
                 currency,

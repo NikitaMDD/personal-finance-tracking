@@ -4,6 +4,7 @@ import com.leviti.backend.modules.category.dto.request.CreateCategoryRequest;
 import com.leviti.backend.modules.category.dto.request.UpdateCategoryRequest;
 import com.leviti.backend.modules.category.dto.response.CategoryResponse;
 import com.leviti.backend.modules.category.entity.CategoryEntity;
+import com.leviti.backend.modules.category.entity.CategoryType;
 import com.leviti.backend.modules.category.mapper.CategoryMapper;
 import com.leviti.backend.modules.category.repository.CategoryRepository;
 import com.leviti.backend.modules.user.entity.UserEntity;
@@ -160,5 +161,23 @@ public class CategoryServiceImpl implements CategoryService {
                                 "Category not found."
                         )
                 );
+    }
+
+    private CategoryEntity category(
+            UserEntity user,
+            String name,
+            String icon,
+            String color,
+            CategoryType type
+    ) {
+
+        return CategoryEntity.builder()
+                .user(user)
+                .name(name)
+                .icon(icon)
+                .color(color)
+                .type(type)
+                .build();
+
     }
 }
