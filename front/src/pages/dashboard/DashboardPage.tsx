@@ -11,6 +11,7 @@ import { ExpensesByCategory } from "@/widgets/expenses-by-category";
 import { useHeader } from "@/shared/hooks/useHeader";
 import { useDashboardAccounts } from "@/features/bank-connection/hooks/useDashboardAccounts";
 import { toAccount } from "@/entities/bank-connection/model/dashboardAccount.mapper";
+import { Spinner } from "@/shared/ui/spinner";
 
 import {EmptyAccountsState} from "./components/EmptyAccountsState"
 
@@ -65,7 +66,17 @@ export function DashboardPage() {
     ] = useState(false);
 
     if (isLoading) {
-        return <>Загрузка...</>;
+        return (
+            <div
+                className="
+                    flex
+                    justify-center
+                    py-20
+                "
+            >
+                <Spinner />
+            </div>
+        );
     }
 
     if (!selectedAccount) {

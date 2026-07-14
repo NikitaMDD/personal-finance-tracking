@@ -17,8 +17,7 @@ export interface Category {
     title: string;
     icon: CategoryIcon;
     color: string;
-    type: "income" | "expense";
-    operationsCount: number;
-    totalAmount: number;
-    percent: number;
+    type:
+        | "income"
+        | "expense";
 }

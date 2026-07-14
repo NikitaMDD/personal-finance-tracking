@@ -1,5 +1,10 @@
 import { Dialog } from "@/shared/ui/dialog";
+
 import { CategoryForm } from "../forms/CategoryForm";
+
+import {
+    useCreateCategoryMutation,
+} from "@/entities/category/hooks/useCreateCategoryMutation";
 
 interface Props {
     open: boolean;
@@ -13,21 +18,32 @@ export function CreateCategoryDialog({
     onOpenChange,
 }: Props) {
 
+    const createMutation =
+        useCreateCategoryMutation();
+
     return (
         <Dialog
             open={open}
             onOpenChange={onOpenChange}
             title="Создать категорию"
-            description="Добавьте новую категорию расходов."
+            description="Добавьте новую категорию."
         >
             <CategoryForm
                 submitLabel="Создать"
+                loading={
+                    createMutation.isPending
+                }
                 onCancel={() =>
                     onOpenChange(false)
                 }
-                onSubmit={(values) => {
-                    console.log(values);
+                onSubmit={async values => {
+
+                    await createMutation.mutateAsync(
+                        values,
+                    );
+
                     onOpenChange(false);
+
                 }}
             />
         </Dialog>

@@ -3,16 +3,24 @@ import { Button } from "@/shared/ui/button";
 import { Stack } from "@/shared/ui/stack";
 import { Typography } from "@/shared/ui/typography";
 
+import {
+    useDeleteCategoryMutation,
+} from "@/entities/category/hooks/useDeleteCategoryMutation";
+
 import type {
     Category,
 } from "@/entities/category/model";
 
 interface Props {
+
     open: boolean;
+
     category: Category | null;
+
     onOpenChange(
         open: boolean,
     ): void;
+
 }
 
 export function DeleteCategoryDialog({
@@ -20,6 +28,9 @@ export function DeleteCategoryDialog({
     category,
     onOpenChange,
 }: Props) {
+
+    const deleteMutation =
+        useDeleteCategoryMutation();
 
     if (!category) {
         return null;
@@ -32,11 +43,17 @@ export function DeleteCategoryDialog({
             title="Удалить категорию"
         >
             <Typography>
+
                 Вы действительно хотите удалить категорию{" "}
+
                 <strong>
+
                     "{category.title}"
+
                 </strong>
+
                 ?
+
             </Typography>
 
             <Stack
@@ -56,9 +73,17 @@ export function DeleteCategoryDialog({
 
                 <Button
                     variant="danger"
-                    onClick={() => {
-                        console.log(category.id);
+                    loading={
+                        deleteMutation.isPending
+                    }
+                    onClick={async () => {
+
+                        await deleteMutation.mutateAsync(
+                            category.id,
+                        );
+
                         onOpenChange(false);
+
                     }}
                 >
                     Удалить

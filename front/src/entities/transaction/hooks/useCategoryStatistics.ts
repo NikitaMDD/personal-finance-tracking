@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import { transactionApi } from "../api/transaction.api";
 
-import { toExpenseCategories } from "@/entities/category/model/category.mapper";
+import {
+    toExpenseCategories,
+} from "@/entities/analytics/model/analytics.mapper";
 
 export function useCategoryStatistics() {
 

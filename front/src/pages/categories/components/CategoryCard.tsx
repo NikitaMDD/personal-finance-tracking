@@ -96,46 +96,23 @@ export function CategoryCard({
                         {category.title}
                     </Typography>
 
-                    <Typography
-                        variant="caption"
-                        className="
-                            text-[var(--color-text-secondary)]
-                        "
-                    >
-                        {category.operationsCount} операций
-                    </Typography>
                 </Stack>
 
                 <Divider className="my-6"/>
 
                 <Typography
-                    variant="display"
+                    variant="body"
+                    className="
+                        mt-4
+                        text-[var(--color-text-secondary)]
+                    "
                 >
-                    {category.totalAmount.toLocaleString("ru-RU")} ₽
+                    {
+                        category.type === "income"
+                            ? "Доход"
+                            : "Расход"
+                    }
                 </Typography>
-
-                <div className="mt-6">
-
-                    <div
-                        className="
-                            mb-2
-                            flex
-                            justify-between
-                        "
-                    >
-                        <Typography variant="caption">
-                            Доля расходов
-                        </Typography>
-
-                        <Typography variant="caption">
-                            {category.percent}%
-                        </Typography>
-                    </div>
-                    <Progress
-                        value={category.percent}
-                        color={category.color}
-                    />
-                </div>
 
                 <div
                     className="

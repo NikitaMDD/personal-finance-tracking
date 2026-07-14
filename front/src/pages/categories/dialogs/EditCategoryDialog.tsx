@@ -1,5 +1,9 @@
 import { Dialog } from "@/shared/ui/dialog";
 
+import {
+    useUpdateCategoryMutation,
+} from "@/entities/category/hooks/useUpdateCategoryMutation";
+
 import type {
     Category,
 } from "@/entities/category/model";
@@ -7,11 +11,15 @@ import type {
 import { CategoryForm } from "../forms/CategoryForm";
 
 interface Props {
+
     open: boolean;
+
     category: Category | null;
+
     onOpenChange(
         open: boolean,
     ): void;
+
 }
 
 export function EditCategoryDialog({
@@ -19,6 +27,9 @@ export function EditCategoryDialog({
     category,
     onOpenChange,
 }: Props) {
+
+    const updateMutation =
+        useUpdateCategoryMutation();
 
     if (!category) {
         return null;
@@ -38,13 +49,26 @@ export function EditCategoryDialog({
                     icon: category.icon,
                     type: category.type,
                 }}
+
                 submitLabel="Сохранить"
+
+                loading={
+                    updateMutation.isPending
+                }
+
                 onCancel={() =>
                     onOpenChange(false)
                 }
-                onSubmit={(values) => {
 
-                    console.log(values);
+                onSubmit={async values => {
+
+                    await updateMutation.mutateAsync({
+
+                        id: category.id,
+
+                        data: values,
+
+                    });
 
                     onOpenChange(false);
 

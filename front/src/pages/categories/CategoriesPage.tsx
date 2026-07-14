@@ -10,6 +10,8 @@ import { CreateCategoryDialog } from "./dialogs/CreateCategoryDialog";
 import { EditCategoryDialog } from "./dialogs/EditCategoryDialog";
 import { DeleteCategoryDialog } from "./dialogs/DeleteCategoryDialog";
 
+import { Spinner } from "@/shared/ui/spinner";
+
 export function CategoriesPage() {
 
     const categories = useCategories();
@@ -34,6 +36,20 @@ export function CategoriesPage() {
                     search.toLowerCase(),
                 ),
         );
+
+    if (categories.isLoading) {
+        return (
+            <div
+                className="
+                    flex
+                    justify-center
+                    py-20
+                "
+            >
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
         <>
