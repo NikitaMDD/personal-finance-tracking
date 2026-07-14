@@ -4,10 +4,15 @@ import {
 
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
-import { Stack } from "@/shared/ui/stack";
 import { Typography } from "@/shared/ui/typography";
 
-export function BudgetGridEmpty() {
+interface Props {
+    onCreate(): void;
+}
+
+export function BudgetGridEmpty({
+    onCreate,
+}: Props) {
 
     return (
 
@@ -49,9 +54,13 @@ export function BudgetGridEmpty() {
 
             <Button
                 className="mt-8"
+                onClick={onCreate}
             >
                 Создать бюджет
             </Button>
+
         </Card>
+
     );
+
 }

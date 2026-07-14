@@ -21,16 +21,22 @@ interface Props {
     onDelete(
         budget: Budget,
     ): void;
+    onCreate(): void;
 }
 
 export function BudgetGrid({
     budgets,
     onEdit,
     onDelete,
+    onCreate,
 }: Props) {
 
     if (!budgets.length) {
-        return <BudgetGridEmpty />;
+        return (
+            <BudgetGridEmpty
+                onCreate={onCreate}
+            />
+        );
     }
 
     return (

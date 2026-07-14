@@ -4,7 +4,6 @@ import com.leviti.backend.modules.category.dto.request.CreateCategoryRequest;
 import com.leviti.backend.modules.category.dto.request.UpdateCategoryRequest;
 import com.leviti.backend.modules.category.dto.response.CategoryResponse;
 import com.leviti.backend.modules.category.entity.CategoryEntity;
-import com.leviti.backend.modules.category.entity.CategoryType;
 import com.leviti.backend.modules.category.mapper.CategoryMapper;
 import com.leviti.backend.modules.category.repository.CategoryRepository;
 import com.leviti.backend.modules.user.entity.UserEntity;
@@ -23,7 +22,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl
+        implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
@@ -35,7 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
             CreateCategoryRequest request
     ) {
 
-        UserEntity user = userService.findByEmail(email);
+        UserEntity user =
+                userService.findByEmail(email);
 
         if (categoryRepository.existsByNameAndUser_Id(
                 request.name(),
@@ -87,7 +88,10 @@ public class CategoryServiceImpl implements CategoryService {
                 userService.findByEmail(email);
 
         return categoryMapper.toResponse(
-                getCategory(user.getId(), categoryId)
+                getCategory(
+                        user.getId(),
+                        categoryId
+                )
         );
 
     }
@@ -103,7 +107,10 @@ public class CategoryServiceImpl implements CategoryService {
                 userService.findByEmail(email);
 
         CategoryEntity entity =
-                getCategory(user.getId(), categoryId);
+                getCategory(
+                        user.getId(),
+                        categoryId
+                );
 
         categoryMapper.updateEntity(
                 request,
@@ -126,7 +133,10 @@ public class CategoryServiceImpl implements CategoryService {
                 userService.findByEmail(email);
 
         categoryRepository.delete(
-                getCategory(user.getId(), categoryId)
+                getCategory(
+                        user.getId(),
+                        categoryId
+                )
         );
     }
 
@@ -161,23 +171,6 @@ public class CategoryServiceImpl implements CategoryService {
                                 "Category not found."
                         )
                 );
-    }
-
-    private CategoryEntity category(
-            UserEntity user,
-            String name,
-            String icon,
-            String color,
-            CategoryType type
-    ) {
-
-        return CategoryEntity.builder()
-                .user(user)
-                .name(name)
-                .icon(icon)
-                .color(color)
-                .type(type)
-                .build();
 
     }
 }

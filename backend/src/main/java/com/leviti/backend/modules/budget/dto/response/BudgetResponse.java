@@ -5,20 +5,15 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record BudgetResponse(
-
         UUID id,
-
-        String name,
-
+        UUID categoryId,
+        String categoryName,
+        String categoryIcon,
+        String categoryColor,
         BigDecimal limitAmount,
-
         BigDecimal spentAmount,
-
         String period,
-
         LocalDate startDate,
-
         LocalDate endDate
-
 ) {
 }

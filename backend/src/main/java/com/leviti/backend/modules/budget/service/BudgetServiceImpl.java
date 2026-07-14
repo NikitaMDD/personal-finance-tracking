@@ -6,8 +6,13 @@ import com.leviti.backend.modules.budget.dto.response.BudgetResponse;
 import com.leviti.backend.modules.budget.entity.BudgetEntity;
 import com.leviti.backend.modules.budget.mapper.BudgetMapper;
 import com.leviti.backend.modules.budget.repository.BudgetRepository;
+
+import com.leviti.backend.modules.category.entity.CategoryEntity;
+import com.leviti.backend.modules.category.service.CategoryService;
+
 import com.leviti.backend.modules.user.entity.UserEntity;
 import com.leviti.backend.modules.user.service.UserService;
+
 import com.leviti.backend.shared.exception.ConflictException;
 import com.leviti.backend.shared.exception.ResourceNotFoundException;
 
@@ -24,11 +29,16 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class BudgetServiceImpl implements BudgetService {
+public class BudgetServiceImpl
+        implements BudgetService {
 
     private final BudgetRepository budgetRepository;
+
     private final BudgetMapper budgetMapper;
+
     private final UserService userService;
+
+    private final CategoryService categoryService;
 
     @Override
     public BudgetResponse create(
@@ -39,13 +49,19 @@ public class BudgetServiceImpl implements BudgetService {
         UserEntity user =
                 userService.findByEmail(email);
 
-        if (budgetRepository.existsByNameAndUser_Id(
-                request.name(),
+        CategoryEntity category =
+                categoryService.findEntityById(
+                        email,
+                        request.categoryId()
+                );
+
+        if (budgetRepository.existsByCategory_IdAndUser_Id(
+                category.getId(),
                 user.getId()
         )) {
 
             throw new ConflictException(
-                    "Budget already exists."
+                    "Budget for this category already exists."
             );
 
         }
@@ -55,7 +71,11 @@ public class BudgetServiceImpl implements BudgetService {
 
         entity.setUser(user);
 
-        entity.setSpentAmount(BigDecimal.ZERO);
+        entity.setCategory(category);
+
+        entity.setSpentAmount(
+                BigDecimal.ZERO
+        );
 
         entity.setCreatedAt(
                 OffsetDateTime.now()
@@ -77,9 +97,13 @@ public class BudgetServiceImpl implements BudgetService {
                 userService.findByEmail(email);
 
         return budgetRepository
-                .findAllByUser_Id(user.getId())
+                .findAllByUser_Id(
+                        user.getId()
+                )
                 .stream()
-                .map(budgetMapper::toResponse)
+                .map(
+                        budgetMapper::toResponse
+                )
                 .toList();
 
     }
@@ -123,6 +147,20 @@ public class BudgetServiceImpl implements BudgetService {
                 request,
                 entity
         );
+
+        if (request.categoryId() != null) {
+
+            CategoryEntity category =
+                    categoryService.findEntityById(
+                            email,
+                            request.categoryId()
+                    );
+
+            entity.setCategory(
+                    category
+            );
+
+        }
 
         return budgetMapper.toResponse(
                 budgetRepository.save(entity)

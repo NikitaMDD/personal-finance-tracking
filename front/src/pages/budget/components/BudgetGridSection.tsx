@@ -14,12 +14,14 @@ interface Props {
     onDelete(
         budget: Budget,
     ): void;
+    onCreate(): void;
 }
 
 export function BudgetGridSection({
     budgets,
     onEdit,
     onDelete,
+    onCreate,
 }: Props) {
 
     return (
@@ -27,6 +29,7 @@ export function BudgetGridSection({
         <BudgetGrid
             budgets={budgets}
             onEdit={onEdit}
+            onCreate={onCreate}
             onDelete={onDelete}
         />
 

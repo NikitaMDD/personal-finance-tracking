@@ -5,11 +5,12 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record CreateBudgetRequest(
 
-        @NotBlank
-        String name,
+        @NotNull
+        UUID categoryId,
 
         @NotNull
         BigDecimal limitAmount,

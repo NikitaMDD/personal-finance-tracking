@@ -41,6 +41,9 @@ export function BudgetPage() {
 
             <BudgetGridSection
                 budgets={budget.budgets}
+                onCreate={
+                    budget.create.openDialog
+                }
                 onEdit={budget.edit.openDialog}
                 onDelete={budget.delete.openDialog}
             />

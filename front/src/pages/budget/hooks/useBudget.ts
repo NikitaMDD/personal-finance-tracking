@@ -1,79 +1,82 @@
-import {
-    useMemo,
-    useState,
-} from "react";
+import { useMemo } from "react";
 
-import {
-    budgetOverviewMock,
-    budgetsMock,
-} from "@/entities/budget/model";
+import { useCrudDialogs } from "@/shared/hooks/useCrudDialogs";
 
 import type {
     Budget,
 } from "@/entities/budget/model";
+
+import {
+    useBudgets,
+} from "@/entities/budget/hooks/useBudgets";
+
+import {
+    useCreateBudgetMutation,
+} from "@/entities/budget/hooks/useCreateBudgetMutation";
+
+import {
+    useUpdateBudgetMutation,
+} from "@/entities/budget/hooks/useUpdateBudgetMutation";
+
+import {
+    useDeleteBudgetMutation,
+} from "@/entities/budget/hooks/useDeleteBudgetMutation";
+
+import {
+    calculateBudgetOverview,
+} from "@/entities/budget/model/budget-overview.mapper";
 
 import type {
     BudgetFormValues,
 } from "../forms/budget.schema";
 
 import {
-    categoriesMock,
-} from "@/entities/category/model";
-
-import {
-    useCrudDialogs,
-} from "@/shared/hooks/useCrudDialogs";
+    toCreateBudgetRequest,
+    toUpdateBudgetRequest
+} from "@/entities/budget/model/budget.mapper"
 
 export function useBudget() {
-
-    const [budgets, setBudgets] =
-        useState(budgetsMock);
 
     const dialogs =
         useCrudDialogs<Budget>();
 
+    const budgetsQuery =
+        useBudgets();
+
+    const createMutation =
+        useCreateBudgetMutation();
+
+    const updateMutation =
+        useUpdateBudgetMutation();
+
+    const deleteMutation =
+        useDeleteBudgetMutation();
+
+    const budgets =
+        budgetsQuery.data ?? [];
+
     const overview =
         useMemo(
-            () => budgetOverviewMock,
-            [],
+            () =>
+                calculateBudgetOverview(
+                    budgets,
+                ),
+            [budgets],
         );
 
-    function createBudget(
+    async function createBudget(
         values: BudgetFormValues,
     ) {
 
-        const category =
-            categoriesMock.find(
-                category =>
-                    category.id ===
-                    values.categoryId,
-            );
-
-        if (!category) {
-            return;
-        }
-
-        const budget: Budget = {
-            id: crypto.randomUUID(),
-            title: values.title,
-            categoryId: values.categoryId,
-            icon: category.icon,
-            color: category.color,
-            period: values.period,
-            limit: values.limit,
-            spent: 0,
-        };
-
-        setBudgets(previous => [
-            budget,
-            ...previous,
-        ]);
+        await createMutation.mutateAsync(
+            toCreateBudgetRequest(values),
+        );
 
         dialogs.create.closeDialog();
 
     }
 
-    function editBudget(
+    async function editBudget(
         values: BudgetFormValues,
     ) {
 
@@ -81,55 +84,58 @@ export function useBudget() {
             return;
         }
 
-        const category =
-            categoriesMock.find(
-                category =>
-                    category.id ===
-                    values.categoryId,
-            );
+        await updateMutation.mutateAsync({
 
-        if (!category) {
-            return;
-        }
+            id: dialogs.edit.item.id,
 
-        setBudgets(previous =>
-            previous.map(budget =>
-                budget.id === dialogs.edit.item!.id
-                    ? {
-                        ...budget,
-                        title: values.title,
-                        categoryId: values.categoryId,
-                        icon: category.icon,
-                        color: category.color,
-                        limit: values.limit,
-                        period: values.period,
-                    }
-                    : budget,
-            ),
-        );
+            data: toUpdateBudgetRequest(values),
+
+        });
+
         dialogs.edit.closeDialog();
+
     }
 
-    function deleteBudget() {
+    async function deleteBudget() {
+
         if (!dialogs.delete.item) {
             return;
         }
-        setBudgets(previous =>
-            previous.filter(
-                budget =>
-                    budget.id !==
-                    dialogs.delete.item!.id,
-            ),
+
+        await deleteMutation.mutateAsync(
+            dialogs.delete.item.id,
         );
+
         dialogs.delete.closeDialog();
+
     }
 
     return {
+
         overview,
+
         budgets,
+
+        isLoading:
+            budgetsQuery.isLoading,
+
+        isCreating:
+            createMutation.isPending,
+
+        isUpdating:
+            updateMutation.isPending,
+
+        isDeleting:
+            deleteMutation.isPending,
+
         ...dialogs,
+
         createBudget,
+
         editBudget,
+
         deleteBudget,
+
     };
+
 }

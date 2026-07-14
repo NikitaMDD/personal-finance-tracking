@@ -1,39 +1,80 @@
-import { categoriesMock } from "@/entities/category/model";
+import {
+    useMemo,
+} from "react";
 
-import { ICON_MAP } from "@/shared/ui/icon-picker/icons";
+import {
+    ICON_MAP,
+} from "@/shared/ui/icon-picker/icons";
+
 import {
     Select,
     type SelectOption,
 } from "@/shared/ui/select";
 
+import {
+    useCategories,
+} from "@/entities/category/hooks/useCategories";
+
 interface Props {
+
     value?: string;
+
     label?: string;
+
     error?: string;
-    onChange(value: string): void;
+
+    onChange(
+        value: string,
+    ): void;
+
 }
 
 export function BudgetCategorySelect({
+
     value,
+
     label = "Категория",
+
     onChange,
+
 }: Props) {
 
-    const options: SelectOption[] =
-        categoriesMock.map(category => ({
-            value: category.id,
-            label: category.title,
-            color: category.color,
-            icon: category.icon,
-        }));
+    const {
+        data: categories = [],
+        isLoading,
+    } = useCategories();
+
+    const options =
+        useMemo<SelectOption[]>(
+            () =>
+                categories.map(category => ({
+
+                    value: category.id,
+
+                    label: category.title,
+
+                    color: category.color,
+
+                    icon: category.icon,
+
+                })),
+            [categories],
+        );
 
     return (
 
         <Select
+
             label={label}
+
             value={value}
+
             placeholder="Выберите категорию"
+
             options={options}
+
+            disabled={isLoading}
+
             onValueChange={onChange}
 
             renderOption={(option) => {
@@ -60,10 +101,12 @@ export function BudgetCategorySelect({
                                     `${option.color}15`,
                             }}
                         >
+
                             <Icon
                                 size={18}
                                 color={option.color}
                             />
+
                         </div>
 
                         <span>
@@ -100,18 +143,26 @@ export function BudgetCategorySelect({
                                     `${option.color}15`,
                             }}
                         >
+
                             <Icon
                                 size={16}
                                 color={option.color}
                             />
+
                         </div>
 
                         <span>
                             {option.label}
                         </span>
+
                     </>
+
                 );
+
             }}
+
         />
+
     );
+
 }

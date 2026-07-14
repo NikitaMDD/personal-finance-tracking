@@ -11,15 +11,18 @@ import java.util.UUID;
 public interface BudgetRepository
         extends JpaRepository<BudgetEntity, UUID> {
 
-    List<BudgetEntity> findAllByUser_Id(UUID userId);
+    List<BudgetEntity> findAllByUser_Id(
+            UUID userId
+    );
 
     Optional<BudgetEntity> findByIdAndUser_Id(
             UUID id,
             UUID userId
     );
 
-    boolean existsByNameAndUser_Id(
-            String name,
+    boolean existsByCategory_IdAndUser_Id(
+            UUID categoryId,
             UUID userId
     );
+
 }

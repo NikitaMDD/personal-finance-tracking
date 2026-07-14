@@ -1,5 +1,6 @@
 package com.leviti.backend.modules.budget.entity;
 
+import com.leviti.backend.modules.category.entity.CategoryEntity;
 import com.leviti.backend.modules.user.entity.UserEntity;
 
 import jakarta.persistence.*;
@@ -28,13 +29,22 @@ public class BudgetEntity {
     @JoinColumn(nullable = false)
     private UserEntity user;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
+    private CategoryEntity category;
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(
+            nullable = false,
+            precision = 12,
+            scale = 2
+    )
     private BigDecimal limitAmount;
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(
+            nullable = false,
+            precision = 12,
+            scale = 2
+    )
     private BigDecimal spentAmount;
 
     @Column(nullable = false)
@@ -48,4 +58,5 @@ public class BudgetEntity {
 
     @Column(nullable = false)
     private OffsetDateTime createdAt;
+
 }
