@@ -21,6 +21,8 @@ import { TopCategories } from "@/widgets/analytics/top-categories/TopCategories"
 import { IncomeExpenseBarChart } from "@/widgets/analytics/charts/income-expense-bar-chart/IncomeExpenseBarChart";
 import { AnimatePresence, motion } from "framer-motion";
 
+import { Spinner } from "@/shared/ui/spinner";
+
 export function AnalyticsPage() {
 
     useHeader({
@@ -32,6 +34,20 @@ export function AnalyticsPage() {
 
     const analytics =
         useAnalytics();
+
+    if (analytics.isLoading) {
+        return (
+            <div
+                className="
+                    flex
+                    justify-center
+                    py-20
+                "
+            >
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
             <motion.div

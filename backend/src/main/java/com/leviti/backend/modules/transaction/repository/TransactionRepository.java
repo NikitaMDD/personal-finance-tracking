@@ -4,6 +4,7 @@ import com.leviti.backend.modules.transaction.entity.TransactionEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -107,6 +108,188 @@ public interface TransactionRepository
     BigDecimal getBalanceByBankConnection(
             @Param("connectionId")
             UUID connectionId
+    );
+
+    @Query("""
+        SELECT
+            FUNCTION('DATE', t.transactionDate),
+            SUM(t.amount)
+        FROM TransactionEntity t
+        WHERE t.user.id = :userId
+          AND t.type = 'EXPENSE'
+        GROUP BY FUNCTION('DATE', t.transactionDate)
+        ORDER BY FUNCTION('DATE', t.transactionDate)
+    """)
+    List<Object[]> getDailyStatistic(
+            @Param("userId")
+            UUID userId
+    );
+
+    @Query("""
+        SELECT COUNT(t)
+        FROM TransactionEntity t
+        WHERE t.user.id = :userId
+    """)
+    Long getOperationsCount(
+            @Param("userId")
+            UUID userId
+    );
+
+    @Query("""
+    SELECT COALESCE(SUM(t.amount),0)
+    FROM TransactionEntity t
+    WHERE t.user.id = :userId
+    AND t.type = 'INCOME'
+    AND t.transactionDate BETWEEN :from AND :to
+    """)
+    BigDecimal getIncomeByPeriod(
+
+            @Param("userId")
+            UUID userId,
+
+            @Param("from")
+            LocalDateTime from,
+
+            @Param("to")
+            LocalDateTime to
+
+    );
+
+    @Query("""
+    SELECT COALESCE(SUM(t.amount),0)
+    FROM TransactionEntity t
+    WHERE t.user.id = :userId
+    AND t.type = 'EXPENSE'
+    AND t.transactionDate BETWEEN :from AND :to
+    """)
+    BigDecimal getExpenseByPeriod(
+            @Param("userId")
+            UUID userId,
+
+            @Param("from")
+            LocalDateTime from,
+
+            @Param("to")
+            LocalDateTime to
+    );
+
+    @Query("""
+    SELECT
+    c.name,
+    SUM(t.amount)
+    
+    FROM TransactionEntity t
+    JOIN t.category c
+    
+    WHERE t.user.id = :userId
+    AND t.transactionDate BETWEEN :from AND :to
+    
+    GROUP BY c.name
+    
+    ORDER BY SUM(t.amount) DESC
+    """)
+    List<Object[]> getCategoryStatisticByPeriod(
+
+            @Param("userId")
+            UUID userId,
+
+            @Param("from")
+            LocalDateTime from,
+
+            @Param("to")
+            LocalDateTime to
+
+    );
+
+    @Query("""
+    SELECT
+    FUNCTION('DATE_TRUNC','month',t.transactionDate),
+    
+    SUM(
+    CASE
+    WHEN t.type='INCOME'
+    THEN t.amount
+    ELSE 0
+    END
+    ),
+    
+    SUM(
+    CASE
+    WHEN t.type='EXPENSE'
+    THEN t.amount
+    ELSE 0
+    END
+    )
+    
+    FROM TransactionEntity t
+    
+    WHERE t.user.id = :userId
+    AND t.transactionDate BETWEEN :from AND :to
+    
+    GROUP BY FUNCTION('DATE_TRUNC','month',t.transactionDate)
+    
+    ORDER BY FUNCTION('DATE_TRUNC','month',t.transactionDate)
+    """)
+    List<Object[]> getMonthlyStatisticByPeriod(
+
+            @Param("userId")
+            UUID userId,
+
+            @Param("from")
+            LocalDateTime from,
+
+            @Param("to")
+            LocalDateTime to
+
+    );
+
+    @Query("""
+    SELECT
+    
+    FUNCTION('DATE', t.transactionDate),
+    
+    SUM(t.amount)
+    
+    FROM TransactionEntity t
+    
+    WHERE t.user.id = :userId
+    
+    AND t.type='EXPENSE'
+    
+    AND t.transactionDate BETWEEN :from AND :to
+    
+    GROUP BY FUNCTION('DATE', t.transactionDate)
+    
+    ORDER BY FUNCTION('DATE', t.transactionDate)
+    """)
+    List<Object[]> getDailyStatisticByPeriod(
+
+            @Param("userId")
+            UUID userId,
+
+            @Param("from")
+            LocalDateTime from,
+
+            @Param("to")
+            LocalDateTime to
+
+    );
+
+    @Query("""
+    SELECT COUNT(t)
+    FROM TransactionEntity t
+    WHERE t.user.id = :userId
+    AND t.transactionDate BETWEEN :from AND :to
+    """)
+    Long getOperationsCountByPeriod(
+            @Param("userId")
+            UUID userId,
+
+            @Param("from")
+            LocalDateTime from,
+
+            @Param("to")
+            LocalDateTime to
     );
 
 }

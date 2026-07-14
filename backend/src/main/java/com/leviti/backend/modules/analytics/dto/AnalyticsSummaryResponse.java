@@ -5,5 +5,6 @@ import java.math.BigDecimal;
 public record AnalyticsSummaryResponse(
         BigDecimal income,
         BigDecimal expense,
-        BigDecimal balance
+        BigDecimal balance,
+        Integer operations
 ) {}
