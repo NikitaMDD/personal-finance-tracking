@@ -13,21 +13,35 @@ export type Language =
     | "en";
 
 export interface NotificationSettings {
+
     email: boolean;
+
     push: boolean;
-    telegram: boolean;
+
+    budget: boolean;
+
 }
 
 export interface SecuritySettings {
+
     lastLogin: string;
+
     twoFactorEnabled: boolean;
+
 }
 
 export interface AppSettings {
+
     theme: ThemeMode;
+
     currency: Currency;
+
     language: Language;
-    notifications: NotificationSettings;
+
     monthStartsFrom: number;
+
+    notifications: NotificationSettings;
+
     security: SecuritySettings;
+
 }

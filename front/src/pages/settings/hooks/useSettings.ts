@@ -1,92 +1,121 @@
-import { useState } from "react";
+import {
+    useUpdateSettingsMutation,
+} from "@/entities/settings/hooks/useUpdateSettingsMutation";
 
 import {
-    settingsMock,
-} from "@/entities/settings/model";
+    useSettings as useSettingsQuery,
+} from "@/entities/settings/hooks/useSettings";
 
 import {
-    THEME_STORAGE_KEY,
-} from "@/shared/constants/theme";
+    toUpdateSettingsRequest,
+} from "@/entities/settings/model/settings.mapper";
 
 import type {
     ThemeMode,
     Currency,
     Language,
     NotificationSettings,
+    AppSettings,
 } from "@/entities/settings/model";
 
 export function useSettings() {
 
-    const [settings, setSettings] =
-        useState(() => {
+    const settingsQuery =
+        useSettingsQuery();
 
-            const savedTheme =
-                localStorage.getItem(
-                    THEME_STORAGE_KEY,
-                ) as ThemeMode | null;
+    const updateMutation =
+        useUpdateSettingsMutation();
 
-            return {
+    const settings =
+        settingsQuery.data;
 
-                ...settingsMock,
+    async function update(
+        next: AppSettings,
+    ) {
 
-                theme:
-                    savedTheme ??
-                    settingsMock.theme,
+        await updateMutation.mutateAsync(
+            toUpdateSettingsRequest(
+                next,
+            ),
+        );
 
-            };
-
-        });
+    }
 
     function updateTheme(
         theme: ThemeMode,
     ) {
-        setSettings(previous => ({
-            ...previous,
+
+        if (!settings) {
+            return;
+        }
+
+        update({
+            ...settings,
             theme,
-        }));
+        });
+
     }
 
     function updateCurrency(
         currency: Currency,
     ) {
-        setSettings(previous => ({
-            ...previous,
+
+        if (!settings) {
+            return;
+        }
+
+        update({
+            ...settings,
             currency,
-        }));
+        });
+
     }
 
     function updateLanguage(
         language: Language,
     ) {
-        setSettings(previous => ({
-            ...previous,
+
+        if (!settings) {
+            return;
+        }
+
+        update({
+            ...settings,
             language,
-        }));
+        });
+
     }
 
     function updateNotifications(
         notifications: Partial<NotificationSettings>,
     ) {
-        setSettings(previous => ({
-            ...previous,
+
+        if (!settings) {
+            return;
+        }
+
+        update({
+            ...settings,
             notifications: {
-                ...previous.notifications,
+                ...settings.notifications,
                 ...notifications,
             },
-        }));
+        });
+
     }
 
     function updateMonthStartsFrom(
         day: number,
     ) {
 
-        setSettings(previous => ({
+        if (!settings) {
+            return;
+        }
 
-            ...previous,
-
+        update({
+            ...settings,
             monthStartsFrom: day,
-
-        }));
+        });
 
     }
 
@@ -94,36 +123,52 @@ export function useSettings() {
         enabled: boolean,
     ) {
 
-        setSettings(previous => ({
+        if (!settings) {
+            return;
+        }
 
-            ...previous,
-
+        update({
+            ...settings,
             security: {
-
-                ...previous.security,
-
+                ...settings.security,
                 twoFactorEnabled: enabled,
-
             },
-
-        }));
+        });
 
     }
 
     function openChangePasswordDialog() {
+
         console.log(
             "Change password",
         );
+
     }
 
     return {
+
         settings,
+
+        isLoading:
+            settingsQuery.isLoading,
+
+        isSaving:
+            updateMutation.isPending,
+
         updateTheme,
+
         updateCurrency,
+
         updateLanguage,
+
         updateNotifications,
+
         updateMonthStartsFrom,
+
         updateTwoFactor,
+
         openChangePasswordDialog,
+
     };
+
 }

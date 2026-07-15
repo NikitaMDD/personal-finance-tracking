@@ -21,7 +21,7 @@ export function SettingsPage() {
         useSettings();
 
     useTheme(
-        settings.settings.theme,
+        settings.settings?.theme ?? "system",
     );
 
     useHeader({
@@ -51,6 +51,13 @@ export function SettingsPage() {
         );
 
     };
+
+    if (
+        settings.isLoading ||
+        !settings.settings
+    ) {
+        return null;
+    }
 
     return (
 

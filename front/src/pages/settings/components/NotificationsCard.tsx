@@ -82,17 +82,17 @@ export function NotificationsCard({
                 />
 
                 <NotificationItem
-                    title="Telegram"
+                    title="Контроль бюджета"
                     helperText="
                         Получать уведомления
-                        в Telegram.
+                        при превышении бюджета.
                     "
                     checked={
-                        settings.notifications.telegram
+                        settings.notifications.budget
                     }
                     onCheckedChange={checked =>
                         onNotificationsChange({
-                            telegram: checked,
+                            budget: checked,
                         })
                     }
                 />
