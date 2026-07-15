@@ -11,13 +11,15 @@ import type {
 import { BankStatusBadge } from "./BankStatusBadge";
 
 interface Props {
+
     bank: ConnectedBank;
-    onConnect(
-        id: string,
-    ): void;
+
+    onConnect(): void;
+
     onManage(
         bank: ConnectedBank,
     ): void;
+
 }
 
 export function BankCard({
@@ -91,11 +93,17 @@ export function BankCard({
                             : "primary"
                     }
                     onClick={() => {
+
                         if (bank.connected) {
+
                             onManage(bank);
+
                             return;
+
                         }
-                        onConnect(bank.id);
+
+                        onConnect();
+
                     }}
                 >
                     {bank.connected

@@ -13,6 +13,14 @@ import com.leviti.backend.shared.exception.ConflictException;
 import com.leviti.backend.shared.exception.ResourceNotFoundException;
 import com.leviti.backend.modules.category.service.CategoryService;
 
+import com.leviti.backend.modules.bank.repository.BankConnectionRepository;
+import com.leviti.backend.modules.budget.repository.BudgetRepository;
+import com.leviti.backend.modules.category.repository.CategoryRepository;
+import com.leviti.backend.modules.transaction.repository.TransactionRepository;
+import com.leviti.backend.modules.user.dto.response.ProfileStatisticsResponse;
+
+import java.math.BigDecimal;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -33,6 +41,14 @@ public class UserServiceImpl implements UserService {
     private final SettingsRepository settingsRepository;
 
     private final DefaultCategoryService defaultCategoryService;
+
+    private final TransactionRepository transactionRepository;
+
+    private final CategoryRepository categoryRepository;
+
+    private final BudgetRepository budgetRepository;
+
+    private final BankConnectionRepository bankConnectionRepository;
 
     @Override
     public UserResponse create(
@@ -177,6 +193,54 @@ public class UserServiceImpl implements UserService {
 
         return userMapper.toResponse(
                 userRepository.save(user)
+        );
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ProfileStatisticsResponse getProfileStatistics(
+            String email
+    ) {
+
+        UserEntity user =
+                findByEmail(email);
+
+        UUID userId =
+                user.getId();
+
+        BigDecimal income =
+                transactionRepository.getIncome(userId);
+
+        BigDecimal expense =
+                transactionRepository.getExpense(userId);
+
+        Long operations =
+                transactionRepository.getOperationsCount(userId);
+
+        long categories =
+                categoryRepository.countByUser_Id(userId);
+
+        long budgets =
+                budgetRepository.countByUser_Id(userId);
+
+        long bankConnections =
+                bankConnectionRepository.countByUser_Id(userId);
+
+        BigDecimal balance =
+                income.subtract(expense);
+
+        long accounts =
+                bankConnectionRepository.countByUser_Id(userId);
+
+        return new ProfileStatisticsResponse(
+                accounts,
+                categories,
+                budgets,
+                operations,
+                income,
+                expense,
+                balance
         );
 
     }

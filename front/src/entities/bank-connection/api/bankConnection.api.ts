@@ -9,15 +9,19 @@ import type {
 } from "@/features/bank-connection/model/connect-bank.types";
 
 import type {
-    BankConnectionResponse
+    BankConnectionResponse,
 } from "../model/bank-connection.types";
 
 export const bankConnectionApi = {
+
     dashboard() {
+
         return api<DashboardAccountResponse[]>(
             "/bank-connections/dashboard",
         );
+
     },
+
     connect(
         data: ConnectBankRequest,
     ) {
@@ -31,6 +35,7 @@ export const bankConnectionApi = {
         );
 
     },
+
     findAll() {
 
         return api<BankConnectionResponse[]>(
@@ -38,4 +43,18 @@ export const bankConnectionApi = {
         );
 
     },
+
+    disconnect(
+        id: string,
+    ) {
+
+        return api<void>(
+            `/bank-connections/${id}`,
+            {
+                method: "DELETE",
+            },
+        );
+
+    },
+
 };

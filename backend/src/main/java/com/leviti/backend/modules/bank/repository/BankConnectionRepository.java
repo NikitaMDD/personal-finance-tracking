@@ -1,6 +1,7 @@
 package com.leviti.backend.modules.bank.repository;
 
 import com.leviti.backend.modules.bank.entity.BankConnectionEntity;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public interface BankConnectionRepository
     boolean existsByUser_IdAndBank_Id(
             UUID userId,
             UUID bankId
+    );
+
+    long countByUser_Id(
+            UUID userId
     );
 
 }

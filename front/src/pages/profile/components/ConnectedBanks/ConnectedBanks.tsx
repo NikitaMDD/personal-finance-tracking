@@ -8,19 +8,25 @@ import type {
 import { BankCard } from "./BankCard";
 
 interface Props {
+
     banks: ConnectedBank[];
-    onConnect(
-        id: string,
-    ): void;
+
+    onConnect(): void;
+
     onManage(
         bank: ConnectedBank,
     ): void;
+
 }
 
 export function ConnectedBanks({
+
     banks,
+
     onConnect,
+
     onManage,
+
 }: Props) {
 
     return (
@@ -31,6 +37,7 @@ export function ConnectedBanks({
                 p-8
             "
         >
+
             <Typography variant="h2">
                 Подключенные банки
             </Typography>
@@ -45,24 +52,54 @@ export function ConnectedBanks({
                 счетами.
             </Typography>
 
-            <div
-                className="
-                    mt-8
-                    grid
-                    gap-6
-                    md:grid-cols-2
-                    xl:grid-cols-3
-                "
-            >
-                {banks.map(bank => (
-                    <BankCard
-                        key={bank.id}
-                        bank={bank}
-                        onConnect={onConnect}
-                        onManage={onManage}
-                    />
-                ))}
-            </div>
+            {banks.length === 0 ? (
+
+                <div
+                    className="
+                        mt-10
+                        text-center
+                    "
+                >
+
+                    <Typography
+                        className="
+                            text-[var(--color-text-secondary)]
+                        "
+                    >
+                        Пока нет подключенных банков.
+                    </Typography>
+
+                </div>
+
+            ) : (
+
+                <div
+                    className="
+                        mt-8
+                        grid
+                        gap-6
+                        md:grid-cols-2
+                        xl:grid-cols-3
+                    "
+                >
+
+                    {banks.map(bank => (
+
+                        <BankCard
+                            key={bank.id}
+                            bank={bank}
+                            onConnect={onConnect}
+                            onManage={onManage}
+                        />
+
+                    ))}
+
+                </div>
+
+            )}
+
         </Card>
+
     );
+
 }

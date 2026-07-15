@@ -1,11 +1,36 @@
-import { useMemo, useState } from "react";
+import {
+    useCrudDialogs,
+} from "@/shared/hooks/useCrudDialogs";
 
 import {
-    profileMock,
-    profileStatisticsMock,
-    connectedBanksMock,
-    securityMock,
-} from "@/entities/profile/model";
+    useCurrentUser,
+} from "@/entities/user/hooks/useCurrentUser";
+
+import {
+    useProfileStatistics,
+} from "@/entities/user/hooks/useProfileStatistics";
+
+import {
+    useUpdateUserMutation,
+} from "@/entities/user/hooks/useUpdateUserMutation";
+
+import {
+    useBankConnections,
+} from "@/entities/bank-connection/hooks/useBankConnections";
+
+import {
+    useDisconnectBankMutation,
+} from "@/entities/bank-connection/hooks/useDisconnectBankMutation";
+
+import {
+    toConnectedBank,
+} from "@/entities/bank-connection/model/bankConnection.mapper";
+
+import {
+    toUpdateUserRequest,
+} from "@/entities/user/model/user.mapper";
+
+import {useState} from "react"
 
 import type {
     ConnectedBank,
@@ -16,17 +41,7 @@ import type {
     ProfileFormValues,
 } from "../forms/profile.schema";
 
-import {
-    useCrudDialogs,
-} from "@/shared/hooks/useCrudDialogs";
-
 export function useProfile() {
-
-    const [profile, setProfile] =
-        useState(profileMock);
-
-    const [banks, setBanks] =
-        useState(connectedBanksMock);
 
     const dialogs =
         useCrudDialogs<UserProfile>();
@@ -34,67 +49,95 @@ export function useProfile() {
     const bankDialogs =
         useCrudDialogs<ConnectedBank>();
 
-    const statistics =
-        useMemo(
-            () => profileStatisticsMock,
-            [],
-        );
+    const profileQuery =
+        useCurrentUser();
 
-    const security =
-        useMemo(
-            () => securityMock,
-            [],
-        );
+    const statisticsQuery =
+        useProfileStatistics();
 
-    function updateProfile(
+    const banksQuery =
+        useBankConnections();
+
+    const updateMutation =
+        useUpdateUserMutation();
+
+    const disconnectMutation =
+        useDisconnectBankMutation();
+
+    async function updateProfile(
         values: ProfileFormValues,
     ) {
-        setProfile(previous => ({
-            ...previous,
-            ...values,
-        }));
+
+        await updateMutation.mutateAsync(
+            toUpdateUserRequest(
+                values,
+            ),
+        );
+
         dialogs.edit.closeDialog();
+
     }
 
-    function connectBank(
+    async function disconnectBank(
         id: string,
     ) {
-        setBanks(previous =>
-            previous.map(bank =>
-                bank.id === id
-                    ? {
-                        ...bank,
-                        connected: true,
-                    }
-                    : bank,
-            ),
+
+        await disconnectMutation.mutateAsync(
+            id,
         );
+
+        bankDialogs.edit.closeDialog();
+
     }
 
-    function disconnectBank(
-        id: string,
-    ) {
-        setBanks(previous =>
-            previous.map(bank =>
-                bank.id === id
-                    ? {
-                        ...bank,
-                        connected: false,
-                    }
-                    : bank,
-            ),
-        );
+    const [
+
+        connectDialogOpen,
+
+        setConnectDialogOpen,
+
+    ] = useState(false);
+
+    function connectBank() {
+
+        setConnectDialogOpen(true);
+
     }
 
     return {
-        profile,
-        statistics,
-        banks,
-        security,
+
+        profile:
+            profileQuery.data,
+
+        statistics:
+            statisticsQuery.data,
+
+        banks:
+            banksQuery.data?.map(
+                toConnectedBank,
+            ) ?? [],
+
+        security: null,
+
+        isLoading:
+            profileQuery.isLoading ||
+            statisticsQuery.isLoading ||
+            banksQuery.isLoading,
+
         ...dialogs,
+
         bank: bankDialogs,
+
         updateProfile,
+
         connectBank,
+
         disconnectBank,
+
+        connectDialogOpen,
+
+        setConnectDialogOpen,
+
     };
+
 }

@@ -10,6 +10,14 @@ import { ConnectedBanks } from "./components/ConnectedBanks/ConnectedBanks";
 import { EditProfileDialog } from "./dialogs/EditProfileDialog"
 import { ManageBankDialog } from "./dialogs/ManageBankDialog"
 
+import { Spinner } from "@/shared/ui/spinner";
+
+import {
+
+    ConnectBankDialog,
+
+} from "@/features/bank-connection/components/ConnectBankDialog";
+
 export function ProfilePage() {
 
     const profile = useProfile();
@@ -20,6 +28,24 @@ export function ProfilePage() {
             placeholder: ""
         },
     });
+
+    if (
+        profile.isLoading ||
+        !profile.profile ||
+        !profile.statistics
+    ) {
+        return (
+            <div
+                className="
+                    flex
+                    justify-center
+                    py-20
+                "
+            >
+                <Spinner />
+            </div>
+        );
+    }
 
     return (
 
@@ -78,6 +104,18 @@ export function ProfilePage() {
                 onOpenChange={
                     profile.bank.edit.closeDialog
                 }
+            />
+
+            <ConnectBankDialog
+
+                open={
+                    profile.connectDialogOpen
+                }
+
+                onOpenChange={
+                    profile.setConnectDialogOpen
+                }
+
             />
 
         </div>

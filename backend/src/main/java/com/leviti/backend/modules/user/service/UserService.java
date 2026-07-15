@@ -2,6 +2,7 @@ package com.leviti.backend.modules.user.service;
 
 import com.leviti.backend.modules.user.dto.request.CreateUserRequest;
 import com.leviti.backend.modules.user.dto.request.UpdateUserRequest;
+import com.leviti.backend.modules.user.dto.response.ProfileStatisticsResponse;
 import com.leviti.backend.modules.user.dto.response.UserResponse;
 import com.leviti.backend.modules.user.entity.UserEntity;
 
@@ -29,6 +30,10 @@ public interface UserService {
     );
 
     UserResponse getCurrentUser(
+            String email
+    );
+
+    ProfileStatisticsResponse getProfileStatistics(
             String email
     );
 

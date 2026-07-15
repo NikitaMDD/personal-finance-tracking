@@ -1,14 +1,26 @@
 interface Props {
+
     income: number;
+
     expenses: number;
+
 }
 
 export function FinancialActivityBar({
+
     income,
+
     expenses,
+
 }: Props) {
 
-    const incomePercent = income / (income + expenses) * 100;
+    const total =
+        income + expenses;
+
+    const incomePercent =
+        total === 0
+            ? 0
+            : income / total * 100;
 
     return (
 
@@ -21,6 +33,7 @@ export function FinancialActivityBar({
                 bg-[var(--color-surface-secondary)]
             "
         >
+
             <div
                 className="
                     h-full
@@ -32,6 +45,9 @@ export function FinancialActivityBar({
                     width: `${incomePercent}%`,
                 }}
             />
+
         </div>
+
     );
+
 }

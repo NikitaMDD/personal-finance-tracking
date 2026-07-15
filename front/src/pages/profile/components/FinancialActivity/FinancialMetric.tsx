@@ -3,7 +3,7 @@ import { Typography } from "@/shared/ui/typography";
 interface Props {
     label: string;
     value: string;
-    color: string;
+    color?: string;
 }
 
 export function FinancialMetric({

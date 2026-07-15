@@ -25,4 +25,8 @@ public interface CategoryRepository
             UUID userId
     );
 
+    long countByUser_Id(
+            UUID userId
+    );
+
 }

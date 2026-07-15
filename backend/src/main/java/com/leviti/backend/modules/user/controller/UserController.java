@@ -1,6 +1,7 @@
 package com.leviti.backend.modules.user.controller;
 
 import com.leviti.backend.modules.user.dto.request.UpdateUserRequest;
+import com.leviti.backend.modules.user.dto.response.ProfileStatisticsResponse;
 import com.leviti.backend.modules.user.dto.response.UserResponse;
 import com.leviti.backend.modules.user.service.UserService;
 
@@ -23,21 +24,37 @@ public class UserController {
     public UserResponse me(
             Principal principal
     ) {
+
         return userService.getCurrentUser(
                 principal.getName()
         );
+
+    }
+
+    @GetMapping("/me/statistics")
+    public ProfileStatisticsResponse statistics(
+            Principal principal
+    ) {
+
+        return userService.getProfileStatistics(
+                principal.getName()
+        );
+
     }
 
     @PatchMapping("/me")
     public UserResponse update(
             Principal principal,
-            @RequestBody
             @Valid
+            @RequestBody
             UpdateUserRequest request
     ) {
+
         return userService.updateCurrentUser(
                 principal.getName(),
                 request
         );
+
     }
+
 }

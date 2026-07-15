@@ -109,7 +109,7 @@ export function UserCard({
                     >
                         <Avatar
                             size="xl"
-                            src={profile.avatar}
+                            src={profile.avatarUrl ?? undefined}
                             name={`${profile.firstName} ${profile.lastName}`}
                             className="
                                 bg-gradient-to-br

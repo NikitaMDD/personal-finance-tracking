@@ -1,9 +1,22 @@
 
 export interface ConnectedBank {
+
     id: string;
+
+    bankId: string;
+
     title: string;
+
     logo: string;
+
+    color: string;
+
+    externalAccountId: string;
+
     connected: boolean;
+
+    connectedAt: string;
+
 }
 
 export interface UserProfile {
@@ -12,7 +25,7 @@ export interface UserProfile {
     lastName: string;
     email: string;
     phone: string;
-    avatar?: string;
+    avatarUrl?: string;
     role: string;
     premium: boolean;
 }

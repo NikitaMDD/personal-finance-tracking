@@ -25,4 +25,8 @@ public interface BudgetRepository
             UUID userId
     );
 
+    long countByUser_Id(
+            UUID userId
+    );
+
 }
