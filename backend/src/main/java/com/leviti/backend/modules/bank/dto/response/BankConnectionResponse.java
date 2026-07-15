@@ -6,6 +6,7 @@ import java.util.UUID;
 public record BankConnectionResponse(
         UUID id,
         UUID bankId,
+        String bankCode,
         String bankName,
         String logo,
         String color,

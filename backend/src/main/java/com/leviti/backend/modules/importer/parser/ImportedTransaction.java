@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public record ImportedTransaction(
         String title,
         String description,
+        String category,
         BigDecimal amount,
         LocalDateTime transactionDate,
         TransactionType type

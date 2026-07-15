@@ -6,41 +6,79 @@ public final class TransactionTitleExtractor {
     }
 
     public static String extract(
+
+            String category,
+
             String description
+
     ) {
 
-        if (description == null || description.isBlank()) {
+        if (
+                category != null &&
+                        !category.isBlank() &&
+                        !"Прочие операции".equalsIgnoreCase(category)
+        ) {
+
+            return category.trim();
+
+        }
+
+        if (
+                description == null ||
+                        description.isBlank()
+        ) {
+
             return "Без названия";
+
         }
 
-        String normalized = description
-                .replace("\n", " ")
-                .replace("\r", " ")
-                .trim();
+        String normalized =
+                description
+                        .replace("\n", " ")
+                        .replace("\r", " ")
+                        .trim();
 
-        if (normalized.contains("Сообщение")) {
-            normalized = normalized.substring(
-                    0,
-                    normalized.indexOf("Сообщение")
-            );
+        if (
+                normalized.startsWith(
+                        "Категория:"
+                )
+        ) {
+
+            normalized =
+                    normalized.substring(
+                                    "Категория:".length()
+                            )
+                            .trim();
+
         }
 
-        if (normalized.contains("Идентификатор")) {
-            normalized = normalized.substring(
-                    0,
-                    normalized.indexOf("Идентификатор")
-            );
+        int dot =
+                normalized.indexOf('.');
+
+        if (dot > 0) {
+
+            normalized =
+                    normalized.substring(
+                            0,
+                            dot
+                    );
+
         }
 
-        if (normalized.length() > 60) {
+        if (
+                normalized.length() > 60
+        ) {
+
             normalized =
                     normalized.substring(
                             0,
                             60
-                    ) + "...";
+                    );
 
         }
 
         return normalized.trim();
+
     }
+
 }

@@ -1,7 +1,10 @@
-import type { LucideIcon } from "lucide-react";
+import type {
+    LucideIcon,
+} from "lucide-react";
 
 export interface SidebarItem {
     title: string;
     icon: LucideIcon;
-    href: string;
+    href?: string;
+    action?: "import";
 }

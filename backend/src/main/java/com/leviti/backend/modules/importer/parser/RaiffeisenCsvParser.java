@@ -68,23 +68,49 @@ public class RaiffeisenCsvParser
 
         for (CSVRecord record : parser) {
 
-            String income = record.get(
-                    "Сумма в валюте операции (поступления)"
-            );
+            String income =
+                    record.get(
+                            "Сумма в валюте операции (поступления)"
+                    );
 
-            String expense = record.get(
-                    "Сумма в валюте операции (расходы)"
-            );
+            String expense =
+                    record.get(
+                            "Сумма в валюте операции (расходы)"
+                    );
 
             TransactionType type;
             BigDecimal amount;
 
             if (!MoneyParser.isEmpty(income)) {
+
                 type = TransactionType.INCOME;
                 amount = MoneyParser.parse(income);
+
             } else {
+
                 type = TransactionType.EXPENSE;
                 amount = MoneyParser.parse(expense);
+
+            }
+
+            /*
+             * В выписке Райффайзен категория может отсутствовать.
+             * Если колонки нет или она пустая, используем null.
+             */
+            String category = null;
+
+            if (parser.getHeaderMap().containsKey("Категория")) {
+
+                category =
+                        record.get("Категория");
+
+                if (
+                        category != null &&
+                                category.isBlank()
+                ) {
+                    category = null;
+                }
+
             }
 
             String description =
@@ -94,6 +120,7 @@ public class RaiffeisenCsvParser
 
             String title =
                     TransactionTitleExtractor.extract(
+                            category,
                             description
                     );
 
@@ -104,19 +131,34 @@ public class RaiffeisenCsvParser
                     );
 
             transactions.add(
+
                     new ImportedTransaction(
+
                             title,
+
+                            category,
+
                             description,
+
                             amount,
+
                             date,
+
                             type
+
                     )
+
             );
+
         }
+
         log.info(
                 "Parsed {} Raiffeisen transactions.",
                 transactions.size()
         );
+
         return transactions;
+
     }
+
 }

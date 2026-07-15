@@ -3,11 +3,26 @@ import { Outlet } from "react-router-dom";
 import { Header } from "@/widgets/header";
 import { Sidebar } from "@/widgets/sidebar";
 
+import { ImportTransactionsDialog } from "@/features/import-transactions/dialogs/ImportTransactionsDialog";
+import { useImportDialogStore } from "@/shared/store/import-dialog.store";
+
 export default function DashboardLayout() {
+
+    const importDialog =
+        useImportDialogStore();
+
     return (
         <div className="flex py-5 h-screen bg-[var(--color-background)]">
 
             <Sidebar />
+            <ImportTransactionsDialog
+                open={importDialog.open}
+                onOpenChange={open =>
+                    open
+                        ? importDialog.openDialog()
+                        : importDialog.closeDialog()
+                }
+            />
 
             <div
                 className="

@@ -25,6 +25,11 @@ public interface CategoryRepository
             UUID userId
     );
 
+    Optional<CategoryEntity> findByUser_IdAndNameIgnoreCase(
+            UUID userId,
+            String name
+    );
+
     long countByUser_Id(
             UUID userId
     );

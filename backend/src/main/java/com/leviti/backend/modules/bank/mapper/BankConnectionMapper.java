@@ -25,6 +25,10 @@ public interface BankConnectionMapper {
             target = "color",
             source = "bank.color"
     )
+    @Mapping(
+            target = "bankCode",
+            source = "bank.code"
+    )
     BankConnectionResponse toResponse(
             BankConnectionEntity entity
     );
